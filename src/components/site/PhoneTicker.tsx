@@ -18,17 +18,17 @@ export function tickerCountries(selected: Country, list: Country[] = COUNTRY_LIS
 }
 
 /**
- * Desktop top bar: one phone number at a time, rolling upwards through each country's line,
+ * Top bar (desktop and mobile): one phone number at a time, rolling upwards through each country's line,
  * starting with the visitor's country. Stops on hover or focus, and stays still for
  * reduced-motion and Lite visitors (who see their own country's number).
  */
-export function PhoneTicker({ className }: { className?: string }) {
+export function PhoneTicker({ className, compact }: { className?: string; compact?: boolean }) {
   const { country } = useCountry();
   // Restart from the visitor's country whenever they pick another.
-  return <Ticker key={country.code} items={tickerCountries(country)} className={className} />;
+  return <Ticker key={country.code} items={tickerCountries(country)} className={className} compact={compact} />;
 }
 
-function Ticker({ items, className }: { items: Country[]; className?: string }) {
+function Ticker({ items, className, compact }: { items: Country[]; className?: string; compact?: boolean }) {
   const [index, setIndex] = useState(0);
   const [moved, setMoved] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -76,13 +76,14 @@ function Ticker({ items, className }: { items: Country[]; className?: string }) 
             tabIndex={current ? undefined : -1}
             data-testid={current ? "phone-ticker-current" : undefined}
             className={clsx(
-              "col-start-1 row-start-1 flex items-center gap-[7px] whitespace-nowrap hover:text-white",
+              "col-start-1 row-start-1 flex items-center whitespace-nowrap hover:text-white",
+              compact ? "gap-[5px] tracking-[0.02em]" : "gap-[7px]",
               !current && "invisible",
             )}
             style={current && moved ? { animation: "ticker-in .45s cubic-bezier(.2,.7,.2,1)" } : undefined}
           >
-            <Phone size={14} aria-hidden />
-            <span className="font-display text-[12px] font-extrabold tracking-[0.06em] text-orange">{c.code3}</span>
+            <Phone size={compact ? 13 : 14} aria-hidden />
+            <span className={clsx("font-display font-extrabold tracking-[0.06em] text-orange", compact ? "text-[11.5px]" : "text-[12px]")}>{c.code3}</span>
             {c.phoneDisplay}
           </a>
         );

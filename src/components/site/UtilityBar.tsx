@@ -5,7 +5,6 @@ import clsx from "clsx";
 import { Mail } from "lucide-react";
 import { SITE, APP_LINKS } from "@/content/site";
 import { UTILITY_LINKS } from "@/content/navigation";
-import { CountryPicker } from "./CountryPicker";
 import { PhoneTicker } from "./PhoneTicker";
 import { SocialLinks } from "./SocialLinks";
 import { WhatsAppLink } from "./WhatsAppLink";
@@ -57,11 +56,11 @@ export function UtilityBar() {
   );
 }
 
-/** Thin mobile utility row (SM1/SM2): country picker, login and WhatsApp. */
+/** Thin mobile utility row (SM1/SM2): rolling phone numbers, login and WhatsApp (country is set in the menu and footer). */
 export function MobileUtilityBar() {
   return (
     <div className="flex h-[38px] items-center justify-between bg-black px-4 font-display text-[12.5px] font-bold uppercase tracking-[0.06em] text-on-dark">
-      <CountryPicker compact />
+      <PhoneTicker compact />
       <div className="flex h-full items-center gap-[14px]">
         <Link href={APP_LINKS.studentPortal} className="flex h-full items-center">
           Login

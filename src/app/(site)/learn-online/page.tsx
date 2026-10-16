@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import clsx from "clsx";
-import { ArrowRight, ChevronRight, FileText, Globe, Headphones, MonitorPlay, Radio, Smartphone, Video, type LucideIcon } from "lucide-react";
+import { ArrowRight, ChevronRight, FileText, Globe, Headphones, Radio, Smartphone, Video, type LucideIcon } from "lucide-react";
 import { openLearn } from "@/config/domains";
 import { COUNTRY_COUNT } from "@/content/countries";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { LearnDevices } from "@/components/ui/LearnDevices";
 import { TitleBlock } from "@/components/ui/SectionHeader";
 import { CheckList } from "@/components/ui/CheckList";
 
@@ -89,14 +89,7 @@ export default function LearnOnlinePage() {
               <Globe size={16} aria-hidden /> Works in any web browser
             </p>
           </div>
-          <div aria-hidden className="relative hidden h-[420px] w-[560px] flex-none md:block">
-            <div className="absolute left-0 top-0 w-[480px] rounded-[8px] bg-black p-3">
-              <ImagePlaceholder label="LIU Learn · web dashboard" icon={MonitorPlay} className="h-[300px] rounded-[4px]" />
-            </div>
-            <div className="absolute bottom-0 right-0 w-[200px] rounded-[10px] bg-black p-2.5">
-              <ImagePlaceholder label="App · offline lessons" icon={Smartphone} className="h-[330px] rounded-[8px]" />
-            </div>
-          </div>
+          <LearnDevices className="w-full max-w-[440px] md:w-[560px] md:max-w-none md:flex-none" />
         </div>
       </section>
 

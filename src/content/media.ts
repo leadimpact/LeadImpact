@@ -12,6 +12,8 @@ export interface MediaAsset {
 
 /** Photos LIU supplied for the new site (the folder next to web/). */
 const SUPPLIED = "../leadimpact";
+/** LIU Learn screen designs, shown in the device mock-ups until the real app exists. */
+const DESIGNS = "../design 3/design/png";
 /** Photos saved from the current site before it is replaced. */
 const LIVE = "public/images";
 
@@ -34,6 +36,8 @@ export const MEDIA = {
   programCounseling: a("programs/christian-counseling", `${LIVE}/thumbs/cc3_350x420.jpg`, ""),
   programAllCourses: a("programs/all-courses", `${LIVE}/thumbs/Courses3_350x420.jpg`, ""),
   programClass: a("programs/class", `${SUPPLIED}/leadimpact-class.jpg`, ""),
+  learnDashboard: a("learn/web-dashboard", `${DESIGNS}/LIU-L02-learn-dashboard.png`, "LIU Learn web dashboard"),
+  learnPhone: a("learn/phone-home", `${DESIGNS}/LIU-L03-m-learn-home-offline-state.png`, "LIU Learn phone app, offline"),
   certificate: a("home/certificate", `${LIVE}/2019/03/02/liucert690-608.jpg`, "Sample LeadImpact University diploma certificate"),
 
   cletusBassey: a("people/cletus-bassey", `${SUPPLIED}/leadimpact-regent-president.jpg`, "Dr. Cletus Bassey"),

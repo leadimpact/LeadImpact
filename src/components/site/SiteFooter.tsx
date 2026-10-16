@@ -127,7 +127,10 @@ export function SiteFooter() {
           </ul>
         </nav>
         <SocialLinks size={18} className="mt-4 gap-2 text-white" linkClassName="size-12" />
-        <p className="mt-3 text-[13px] text-on-dark-muted">© {year} LeadImpact University</p>
+        <div className="mt-3 flex items-center justify-between text-[13px] text-on-dark-muted">
+          <span>© {year} LeadImpact University</span>
+          <CountryPicker className="min-h-12 font-bold text-white" />
+        </div>
       </div>
     </footer>
   );

@@ -6,13 +6,14 @@ import { TUITION } from "@/content/colleges";
 import { cloudinaryEnabled } from "@/config/media";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
-/** 02 Featured programs — portrait cards (S01). Desktop and tablet only (not in SM1). */
+/** 02 Featured programs — portrait cards (S01); a swipeable row on phones. */
 export function FeaturedPrograms() {
   return (
-    <section className="hidden bg-bg px-page py-[100px] md:block">
+    <section className="bg-bg px-page py-10 md:py-[100px]">
       <SectionHeader
         number="02"
         eyebrow="Featured programs"
+        mobileEyebrow="Popular programs"
         title="Start with a program that matches your calling"
         action={
           <Link href="/programs" className="btn btn-dark">
@@ -21,10 +22,16 @@ export function FeaturedPrograms() {
           </Link>
         }
       />
-      <ul className="grid grid-cols-2 gap-6 xl:grid-cols-4">
+      {/* Phones: swipe sideways through the cards (the next one peeks in). */}
+      <ul
+        role="region"
+        aria-label="Featured programs"
+        tabIndex={0}
+        className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 xl:grid-cols-4"
+      >
         {FEATURED_PROGRAMS.map((p) => (
-          <li key={p.title}>
-            <Link href={p.href} className="group relative block h-[500px] overflow-hidden bg-charcoal text-white">
+          <li key={p.title} className="w-[78%] flex-none snap-start md:w-auto">
+            <Link href={p.href} className="group relative block h-[380px] overflow-hidden bg-charcoal text-white md:h-[500px]">
               {cloudinaryEnabled() && (
                 <Image
                   src={p.image.id}
@@ -38,9 +45,9 @@ export function FeaturedPrograms() {
                 aria-hidden
                 className="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,15,18,0)_25%,rgba(14,15,18,.8)_58%,rgba(14,15,18,.97)_100%)]"
               />
-              <div className="absolute inset-x-0 bottom-0 p-7">
+              <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
                 <p className="font-display text-[12px] font-extrabold uppercase tracking-[0.12em] text-orange">{p.college}</p>
-                <h3 className="mt-2.5 font-display text-[34px] font-extrabold uppercase leading-none tracking-[-0.02em]">
+                <h3 className="mt-2.5 font-display text-[28px] font-extrabold uppercase leading-none tracking-[-0.02em] md:text-[34px]">
                   {p.title}
                 </h3>
                 <div className="mt-5 flex items-center justify-between border-t border-white/25 pt-4">
@@ -56,7 +63,11 @@ export function FeaturedPrograms() {
           </li>
         ))}
       </ul>
-      <p className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-[15.5px] text-muted">
+      <Link href="/programs" className="btn btn-dark mt-5 w-full md:hidden">
+        Browse all courses
+        <ArrowRight size={18} aria-hidden />
+      </Link>
+      <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-[15px] text-muted md:mt-6 md:text-[15.5px]">
         <Award size={18} aria-hidden />
         Tuition <b className="text-ink">${TUITION.perCourse} per course</b> or{" "}
         <b className="text-ink">

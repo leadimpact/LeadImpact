@@ -12,19 +12,21 @@ const ICONS: Record<WhyIcon, LucideIcon> = {
   scholarship: Award,
 };
 
-/** 09 Why choose LIU (S01). */
+/** 09 Why choose LIU (S01); an icon list on phones. */
 export function WhyChoose() {
   return (
-    <section className="hidden bg-white px-page py-[100px] md:block">
+    <section className="bg-white px-page py-10 md:py-[100px]">
       <SectionHeader number="09" eyebrow="Why choose LIU" title="A wealth of experience. A reputation for excellence." />
-      <ul className="grid grid-cols-3 border-t-2 border-black xl:grid-cols-5">
+      <ul className="border-t-2 border-black md:grid md:grid-cols-3 xl:grid-cols-5">
         {WHY_CHOOSE.map((w) => {
           const Icon = ICONS[w.icon];
           return (
-            <li key={w.title} className="pb-2.5 pr-[26px] pt-[30px]">
-              <Icon size={30} aria-hidden className="text-orange-text" />
-              <h3 className="mt-[18px] font-display text-[18px] font-extrabold uppercase tracking-[0.04em]">{w.title}</h3>
-              <p className="mt-2 text-[15.5px] leading-relaxed text-muted">{w.text}</p>
+            <li key={w.title} className="flex gap-4 border-b border-line py-4 md:block md:border-0 md:pb-2.5 md:pr-[26px] md:pt-[30px]">
+              <Icon size={30} aria-hidden className="mt-0.5 flex-none text-orange-text" />
+              <div>
+                <h3 className="font-display text-[16px] font-extrabold uppercase tracking-[0.04em] md:mt-[18px] md:text-[18px]">{w.title}</h3>
+                <p className="mt-1 text-[15px] leading-relaxed text-muted md:mt-2 md:text-[15.5px]">{w.text}</p>
+              </div>
             </li>
           );
         })}
@@ -33,13 +35,13 @@ export function WhyChoose() {
   );
 }
 
-/** 10 Certified programs (S01). */
+/** 10 Certified programs (S01); certificate photo on top on phones. */
 export function Certified() {
   return (
-    <section className="on-dark hidden bg-charcoal text-white md:flex md:items-center">
-      <div className="flex-1 px-page py-[90px]">
+    <section className="on-dark flex flex-col-reverse bg-charcoal text-white md:flex-row md:items-center">
+      <div className="flex-1 px-page py-10 md:py-[90px]">
         <SectionHeader number="10" eyebrow={CERTIFIED.eyebrow} title={CERTIFIED.title} tone="dark" className="md:mb-6" />
-        <p className="max-w-[600px] text-[19px] leading-relaxed text-on-dark">{CERTIFIED.text}</p>
+        <p className="max-w-[600px] text-[17px] leading-relaxed text-on-dark md:text-[19px]">{CERTIFIED.text}</p>
         <div className="mt-[30px] flex flex-wrap gap-3">
           <Link href="/academics/academic-affairs#accreditation" className="btn btn-orange">
             See accreditation
@@ -50,8 +52,8 @@ export function Certified() {
           </Link>
         </div>
       </div>
-      <div className="relative hidden aspect-[620/540] w-[43%] max-w-[620px] flex-none lg:block">
-        <Photo asset={CERTIFIED.image} sizes="43vw" className="size-full" />
+      <div className="relative aspect-[620/540] w-full md:hidden lg:block lg:w-[43%] lg:max-w-[620px] lg:flex-none">
+        <Photo asset={CERTIFIED.image} sizes="(min-width: 1024px) 43vw, 100vw" className="size-full" />
       </div>
     </section>
   );

@@ -7,7 +7,7 @@ import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { Photo } from "@/components/ui/Photo";
 import { Tbc } from "@/components/ui/Tbc";
 
-/** 07 News & events (S01); "Coming up" event list on phones (SM1). All dates are placeholders. */
+/** 07 News & events (S01); compact photo rows on phones. All dates are placeholders. */
 export function NewsEvents() {
   return (
     <section className="bg-white px-page py-10 md:py-[100px]">
@@ -16,7 +16,7 @@ export function NewsEvents() {
         eyebrow="News & events"
         title={
           <>
-            <span className="md:hidden">Coming up</span>
+            <span className="md:hidden">News & events</span>
             <span className="hidden md:inline">What’s happening at LIU</span>
           </>
         }
@@ -66,28 +66,38 @@ export function NewsEvents() {
         ))}
       </ul>
 
+      {/* Phones: every item as a compact row with its photo and date. */}
       <ul className="md:hidden">
-        {NEWS.filter((n) => n.isEvent).map((n) => (
+        {NEWS.map((n) => (
           <li key={n.slug} className="mt-3">
-            <Link href={newsHref(n)} className="flex items-center gap-3.5 rounded-[8px] border-[1.5px] border-line p-3.5">
-              <span className="flex h-[66px] w-[62px] flex-none flex-col items-center justify-center rounded-[6px] bg-charcoal text-white">
-                <Tbc>
-                  <span className="block text-center font-display text-[24px] font-extrabold leading-none">
-                    {n.date.day === "TBC" ? "—" : n.date.day}
-                  </span>
-                  <span className="block text-center font-display text-[11px] font-extrabold uppercase text-orange">
-                    {n.date.month}
-                  </span>
-                </Tbc>
+            <Link href={newsHref(n)} className="flex items-center gap-3.5 rounded-[8px] border-[1.5px] border-line p-2.5">
+              <span className="relative block h-[88px] w-[92px] flex-none overflow-hidden rounded-[6px]">
+                {n.photo ? (
+                  <Photo asset={n.photo} alt="" sizes="92px" className="size-full" />
+                ) : (
+                  <ImagePlaceholder label={n.category} iconSize={20} className="size-full" />
+                )}
+                <span className="absolute bottom-0 left-0 bg-charcoal px-1.5 py-1 text-center font-display text-[11px] font-extrabold uppercase leading-none text-white">
+                  <Tbc>
+                    {n.date.day === "TBC" ? "TBC" : `${n.date.day} ${n.date.month}`}
+                  </Tbc>
+                </span>
               </span>
-              <span>
-                <span className="block font-display text-[16px] font-extrabold tracking-[-0.01em]">{n.shortTitle}</span>
+              <span className="min-w-0">
+                <span className="block font-display text-[11px] font-extrabold uppercase tracking-[0.12em] text-orange-text">
+                  {n.category}
+                </span>
+                <span className="mt-1 block font-display text-[16px] font-extrabold leading-snug tracking-[-0.01em]">{n.shortTitle}</span>
                 <span className="block text-[14px] text-muted">{n.shortMeta}</span>
               </span>
             </Link>
           </li>
         ))}
       </ul>
+      <Link href="/media/blog" className="btn btn-outline mt-5 w-full md:hidden">
+        All news & events
+        <ArrowRight size={18} aria-hidden />
+      </Link>
     </section>
   );
 }

@@ -8,6 +8,7 @@ import { APP_LINKS } from "@/content/site";
 import { MOBILE_MENU_GROUPS, affiliateHref } from "@/content/navigation";
 import { useCountry } from "@/lib/country";
 import { Logo } from "./Logo";
+import { CountryPicker } from "./CountryPicker";
 import { MobileUtilityBar } from "./UtilityBar";
 import { WhatsAppLink } from "./WhatsAppLink";
 
@@ -149,6 +150,10 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
             />
           </label>
         </form>
+        <div className="mt-3 flex min-h-12 items-center justify-between rounded-[6px] border-[1.5px] border-line px-4">
+          <span className="text-[15px] text-muted">Your country</span>
+          <CountryPicker className="font-bold text-ink" />
+        </div>
       </div>
 
       <nav aria-label="Site sections">

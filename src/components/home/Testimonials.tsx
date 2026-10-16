@@ -9,7 +9,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Photo } from "@/components/ui/Photo";
 import { Tbc } from "@/components/ui/Tbc";
 
-/** 08 Testimonial carousel (S01). Manual only — no autoplay. All entries are placeholders. */
+/** 08 Testimonial carousel (S01); photo on top on phones. Manual only — no autoplay. All entries are placeholders. */
 export function Testimonials() {
   const [index, setIndex] = useState(0);
   const total = TESTIMONIALS.length;
@@ -20,11 +20,11 @@ export function Testimonials() {
     <section
       aria-roledescription="carousel"
       aria-label="Graduate testimonials"
-      className="hidden bg-bg px-page py-[100px] md:block"
+      className="bg-bg px-page py-10 md:py-[100px]"
     >
       <div className="flex flex-col gap-10 xl:flex-row xl:items-center xl:gap-20">
         <div className="xl:w-[380px] xl:flex-none">
-          <SectionHeader number="08" eyebrow="Satisfied learners" title="Leaders who took the lead" className="md:mb-8" />
+          <SectionHeader number="08" eyebrow="Satisfied learners" title="Leaders who took the lead" className="mb-5 md:mb-8" />
           <div className="flex items-center">
             <button
               type="button"
@@ -48,11 +48,11 @@ export function Testimonials() {
           </div>
         </div>
 
-        <figure className="flex flex-1 items-stretch border-l-8 border-orange bg-white">
-          <Photo asset={t.photo} alt="" icon={User} sizes="280px" className="hidden w-[280px] min-h-[360px] flex-none lg:flex" />
-          <div className="flex-1 p-11">
+        <figure className="flex flex-1 flex-col border-t-8 border-orange bg-white lg:flex-row lg:items-stretch lg:border-l-8 lg:border-t-0">
+          <Photo asset={t.photo} alt="" icon={User} sizes="(min-width: 1024px) 280px, 100vw" className="h-[260px] w-full flex-none lg:h-auto lg:min-h-[360px] lg:w-[280px]" />
+          <div className="flex-1 p-6 md:p-11">
             <Quote size={34} aria-hidden className="text-orange" />
-            <blockquote className="mt-3.5 font-display text-[22px] font-semibold leading-normal xl:text-[24px]">
+            <blockquote className="mt-3.5 font-display text-[19px] font-semibold leading-normal md:text-[22px] xl:text-[24px]">
               <Tbc>{t.quote}</Tbc>
             </blockquote>
             <figcaption className="mt-6 flex flex-wrap items-center gap-3">

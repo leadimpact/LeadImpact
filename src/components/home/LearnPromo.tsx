@@ -3,7 +3,6 @@ import {
   ArrowRight,
   BookOpenText,
   Headphones,
-  MonitorPlay,
   Radio,
   Smartphone,
   Timer,
@@ -14,7 +13,7 @@ import {
 import { LEARN, type LearnFeatureIcon } from "@/content/home";
 import { APP_LINKS } from "@/content/site";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { LearnDevices } from "@/components/ui/LearnDevices";
 
 const ICONS: Record<LearnFeatureIcon, LucideIcon> = {
   video: Video,
@@ -64,7 +63,7 @@ export function LearnPromo() {
           </ul>
 
           {/* Phones */}
-          <ImagePlaceholder label="LIU Learn app" icon={Smartphone} className="h-[220px] rounded-[8px] md:hidden" />
+          <LearnDevices className="mx-auto w-full max-w-[440px] md:hidden" />
           <ul className="mt-4 grid grid-cols-2 gap-2.5 md:hidden">
             {LEARN.mobileFeatures.map((f) => {
               const Icon = ICONS[f.icon];
@@ -89,15 +88,8 @@ export function LearnPromo() {
           </div>
         </div>
 
-        {/* Device mock-ups — replaced with real LIU Learn screenshots once phase 7 lands */}
-        <div aria-hidden className="relative hidden h-[500px] w-[560px] flex-none self-center md:block">
-          <div className="absolute left-0 top-10 w-[470px] bg-black px-3 pt-3">
-            <ImagePlaceholder label="LIU Learn · web dashboard" icon={MonitorPlay} iconSize={28} className="h-[300px]" />
-          </div>
-          <div className="absolute right-2.5 top-[110px] w-[200px] rounded-[10px] bg-black p-2.5">
-            <ImagePlaceholder label="App · offline lessons" icon={Smartphone} iconSize={28} className="h-[370px] rounded-[8px]" />
-          </div>
-        </div>
+        {/* LIU Learn screen designs in device frames (real screenshots once phase 7 lands) */}
+        <LearnDevices className="hidden w-[560px] flex-none self-center md:block" />
       </div>
     </section>
   );

@@ -10,11 +10,11 @@ import { useCountry } from "@/lib/country";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Photo } from "@/components/ui/Photo";
 
-/** 05 Affiliate campuses (S01). The visitor's selected country gets the orange top bar. */
+/** 05 Affiliate campuses (S01); a swipeable row on phones. The visitor's country gets the orange top bar. */
 export function Campuses() {
   const { country } = useCountry();
   return (
-    <section className="hidden bg-bg px-page py-[100px] md:block">
+    <section className="bg-bg px-page py-10 md:py-[100px]">
       <SectionHeader
         number="05"
         eyebrow="Our affiliate campuses"
@@ -26,12 +26,17 @@ export function Campuses() {
           </Link>
         }
       />
-      <ul className="grid grid-cols-3 border border-line bg-white lg:grid-cols-5">
+      <ul
+        role="region"
+        aria-label="Affiliate campuses"
+        tabIndex={0}
+        className="-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 md:mx-0 md:grid md:grid-cols-3 md:gap-0 md:overflow-visible md:border md:border-line md:bg-white md:px-0 md:pb-0 lg:grid-cols-5"
+      >
         {COUNTRY_LIST.map((c) => (
           <li
             key={c.code}
             className={clsx(
-              "border-r border-line border-t-[6px] last:border-r-0",
+              "w-[78%] flex-none snap-start border border-t-[6px] border-line bg-white md:w-auto md:border-0 md:border-r md:border-t-[6px] md:last:border-r-0",
               c.code === country.code ? "border-t-orange" : "border-t-black",
             )}
           >
@@ -59,6 +64,10 @@ export function Campuses() {
           </li>
         ))}
       </ul>
+      <Link href="/contact#campuses" className="btn btn-dark mt-5 w-full md:hidden">
+        All locations
+        <ArrowRight size={18} aria-hidden />
+      </Link>
     </section>
   );
 }
