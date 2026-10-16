@@ -2,7 +2,8 @@ import { expect, test } from "@playwright/test";
 
 type Page = import("@playwright/test").Page;
 const word = (page: Page) => page.getByTestId("hero-word");
-/** The slide timer is a CSS animation on the active navigator bar. */
+/** Desktop: the slide timer is a CSS animation on the active navigator bar (phones have no navigator). */
+const isDesktop = (page: Page) => (page.viewportSize()?.width ?? 0) >= 768;
 const timerAnimation = (page: Page) =>
   page
     .getByRole("button", { name: /^Slide 1 of 3/ })
@@ -19,6 +20,7 @@ test.describe("home hero (word window)", () => {
   });
 
   test("navigator jumps to a slide and the word stays on one line", async ({ page }) => {
+    test.skip(!isDesktop(page), "the navigator is desktop-only");
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     await page.getByRole("button", { name: /^Slide 2 of 3/ }).click();
@@ -41,6 +43,7 @@ test.describe("home hero (word window)", () => {
   });
 
   test("pauses while hovered", async ({ page }) => {
+    test.skip(!isDesktop(page), "the navigator is desktop-only");
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.goto("/");
     // Wait for hydration to start the timer before hovering.
@@ -58,7 +61,7 @@ test.describe("home hero (word window)", () => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     await expect(word(page)).toHaveText("Lead");
-    expect(await timerAnimation(page)).toBe("none");
+    if (isDesktop(page)) expect(await timerAnimation(page)).toBe("none");
   });
 
   test("Lite mode drops the hero photos and autoplay", async ({ page }) => {
@@ -70,8 +73,24 @@ test.describe("home hero (word window)", () => {
     await expect(page.locator("html")).toHaveAttribute("data-lite", "");
     await expect(word(page)).toHaveCSS("background-image", "none");
     await expect(word(page)).toHaveText("Lead");
-    expect(await timerAnimation(page)).toBe("none");
+    if (isDesktop(page)) expect(await timerAnimation(page)).toBe("none");
   });
+});
+
+test("phones: the hero fills the first screen, has one button and keeps its layout on every slide", async ({ page }) => {
+  test.skip(isDesktop(page), "mobile only");
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  const hero = page.getByRole("region", { name: "Welcome to LeadImpact University" });
+  await expect(hero.getByRole("button")).toHaveCount(0);
+  await expect(page.getByRole("navigation", { name: "Quick actions" })).not.toBeInViewport();
+
+  const cta = hero.getByRole("link", { name: /Start your application/ });
+  const before = { hero: await hero.boundingBox(), cta: await cta.boundingBox() };
+  await expect(word(page)).toHaveText("Transform", { timeout: 10_000 });
+  await page.waitForTimeout(900); // let the wipe-in finish
+  expect(await hero.boundingBox()).toEqual(before.hero);
+  expect((await cta.boundingBox())!.y).toBeCloseTo(before.cta!.y, 0);
 });
 
 test("tuition is shown as $200 per course or $500 for 3", async ({ page }) => {
