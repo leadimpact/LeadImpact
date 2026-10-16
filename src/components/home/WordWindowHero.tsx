@@ -45,16 +45,6 @@ export function WordWindowHero({ slides, hero }: Props) {
     setChanged(true);
   };
 
-  // Phones have no navigator bar (whose animation drives desktop autoplay), so a timer advances them.
-  useEffect(() => {
-    if (!autoplay || paused || window.matchMedia("(min-width: 768px)").matches) return;
-    const id = setTimeout(() => {
-      setIndex((i) => (i + 1) % slides.length);
-      setChanged(true);
-    }, hero.slideSeconds * 1000);
-    return () => clearTimeout(id);
-  }, [autoplay, paused, index, slides.length, hero.slideSeconds]);
-
   const slide = slides[index];
   // Every slide's word gets the box of the largest one (LEAD), so nothing below it moves between slides.
   const maxSize = Math.max(...slides.map((s) => s.maxSize));
@@ -79,7 +69,7 @@ export function WordWindowHero({ slides, hero }: Props) {
         if (Math.abs(dx) > 50) go(index + (dx < 0 ? 1 : -1));
       }}
       // Phones: a fixed height filling the first screen under the sticky header (110px) and section tabs (88px).
-      className="relative flex h-[max(calc(100svh-198px),440px)] flex-col justify-center overflow-hidden bg-black px-5 py-6 text-center text-white md:h-[820px] md:justify-start md:px-0 md:pb-[30px] md:pt-0"
+      className="relative flex h-[max(calc(100svh-198px),456px)] flex-col justify-center overflow-hidden bg-black px-5 py-6 text-center [@media(max-height:680px)]:py-3 text-white md:h-[820px] md:justify-start md:px-0 md:pb-[30px] md:pt-0"
     >
       {/* Faint, darkened copy of the slide photo behind everything */}
       <div
@@ -159,8 +149,8 @@ export function WordWindowHero({ slides, hero }: Props) {
         </p>
       </div>
 
-      {/* Navigator: 01 LEAD · 02 TRANSFORM · 03 IMPACT — desktop only; phones swipe (and autoplay) */}
-      <div className="relative hidden gap-7 px-[var(--page-gutter)] md:flex" role="group" aria-label="Choose a slide">
+      {/* Navigator: 01 LEAD · 02 TRANSFORM · 03 IMPACT (its active bar's animation drives autoplay) */}
+      <div className="relative mt-7 flex gap-1.5 [@media(max-height:680px)]:mt-3 md:mt-0 md:gap-7 md:px-[var(--page-gutter)]" role="group" aria-label="Choose a slide">
         {slides.map((s, i) => {
           const active = i === index;
           return (

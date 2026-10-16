@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 type Page = import("@playwright/test").Page;
 const word = (page: Page) => page.getByTestId("hero-word");
-/** Desktop: the slide timer is a CSS animation on the active navigator bar (phones have no navigator). */
+/** The slide timer is a CSS animation on the active navigator bar. */
 const isDesktop = (page: Page) => (page.viewportSize()?.width ?? 0) >= 768;
 const timerAnimation = (page: Page) =>
   page
@@ -20,7 +20,6 @@ test.describe("home hero (word window)", () => {
   });
 
   test("navigator jumps to a slide and the word stays on one line", async ({ page }) => {
-    test.skip(!isDesktop(page), "the navigator is desktop-only");
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     await page.getByRole("button", { name: /^Slide 2 of 3/ }).click();
@@ -43,7 +42,6 @@ test.describe("home hero (word window)", () => {
   });
 
   test("pauses while hovered", async ({ page }) => {
-    test.skip(!isDesktop(page), "the navigator is desktop-only");
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.goto("/");
     // Wait for hydration to start the timer before hovering.
@@ -61,7 +59,7 @@ test.describe("home hero (word window)", () => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     await expect(word(page)).toHaveText("Lead");
-    if (isDesktop(page)) expect(await timerAnimation(page)).toBe("none");
+    expect(await timerAnimation(page)).toBe("none");
   });
 
   test("Lite mode drops the hero photos and autoplay", async ({ page }) => {
@@ -73,16 +71,17 @@ test.describe("home hero (word window)", () => {
     await expect(page.locator("html")).toHaveAttribute("data-lite", "");
     await expect(word(page)).toHaveCSS("background-image", "none");
     await expect(word(page)).toHaveText("Lead");
-    if (isDesktop(page)) expect(await timerAnimation(page)).toBe("none");
+    expect(await timerAnimation(page)).toBe("none");
   });
 });
 
-test("phones: the hero fills the first screen, has one button and keeps its layout on every slide", async ({ page }) => {
+test("phones: the hero fills the first screen, has one call to action and keeps its layout on every slide", async ({ page }) => {
   test.skip(isDesktop(page), "mobile only");
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/");
   const hero = page.getByRole("region", { name: "Welcome to LeadImpact University" });
-  await expect(hero.getByRole("button")).toHaveCount(0);
+  await expect(hero.getByRole("link")).toHaveCount(1);
+  await expect(hero.getByRole("group", { name: "Choose a slide" })).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Quick actions" })).not.toBeInViewport();
 
   const cta = hero.getByRole("link", { name: /Start your application/ });

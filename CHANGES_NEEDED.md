@@ -98,7 +98,7 @@ show the same figures as stat cards). Phones have no menu button: the desktop me
 under the header, on every page; Home and Contact are links, the others open a panel of that section’s pages.
 The mobile header keeps Apply and Login, the crest spans the top bar and header row, the whole header sticks,
 and search moved to the mobile footer links. The phone hero has a fixed height that fills the first screen under the
-header and tabs (min 440px), every slide keeps the same layout, and the slide navigator is desktop-only (phones swipe; autoplay continues).
+header and tabs (min 456px) and every slide keeps the same layout; the slide progress bar shows on phones and desktop.
 
 
 ## Admissions, tuition and scholarships (phase 3)
