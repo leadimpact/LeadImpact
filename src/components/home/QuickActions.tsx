@@ -5,7 +5,7 @@ import { QUICK_ACTIONS, type QuickActionIcon } from "@/content/home";
 
 const ICONS: Record<QuickActionIcon, LucideIcon> = { apply: PenLine, pay: CreditCard, login: User, learn: Play };
 
-/** Orange quick-action bar under the hero (S01), stacked cards on phones (SM1). */
+/** Orange quick-action bar under the hero (S01); stacked cards on phones (SM1), without Apply (the hero has it). */
 export function QuickActions() {
   return (
     <nav aria-label="Quick actions">
@@ -39,26 +39,17 @@ export function QuickActions() {
         })}
       </ul>
 
-      {/* Phones */}
+      {/* Phones: the hero's "Start your application" is the apply button, so it isn't repeated here. */}
       <ul className="bg-charcoal px-5 pb-5 pt-1.5 md:hidden">
-        {QUICK_ACTIONS.map((a, i) => {
+        {QUICK_ACTIONS.filter((a) => a.icon !== "apply").map((a) => {
           const Icon = ICONS[a.icon];
-          const first = i === 0;
           return (
             <li key={a.href} className="mt-2.5">
-              <Link
-                href={a.href}
-                className={clsx(
-                  "flex min-h-[64px] items-center gap-3.5 rounded-[8px] p-4",
-                  first ? "bg-orange text-black" : "bg-white/[0.07] text-white",
-                )}
-              >
-                <Icon size={22} aria-hidden className={first ? "text-black" : "text-orange"} />
+              <Link href={a.href} className="flex min-h-[64px] items-center gap-3.5 rounded-[8px] bg-white/[0.07] p-4 text-white">
+                <Icon size={22} aria-hidden className="text-orange" />
                 <span className="flex-1">
                   <span className="block font-display text-[17px] font-extrabold tracking-[-0.02em]">{a.mobileLabel}</span>
-                  <span className={clsx("block text-[13.5px]", first ? "text-[#4A2208]" : "text-[#B9B6B1]")}>
-                    {a.mobileDetail}
-                  </span>
+                  <span className="block text-[13.5px] text-[#B9B6B1]">{a.mobileDetail}</span>
                 </span>
                 <ChevronRight size={20} aria-hidden />
               </Link>

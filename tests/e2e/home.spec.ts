@@ -102,9 +102,11 @@ test("mobile home follows SM1: quick actions, colleges and closing CTA", async (
   test.skip((page.viewportSize()?.width ?? 0) >= 768, "mobile only");
   await page.goto("/");
   const quick = page.getByRole("navigation", { name: "Quick actions" });
-  for (const name of ["Apply for admission", "Pay tuition", "Student portal", "LIU Learn"]) {
+  for (const name of ["Pay tuition", "Student portal", "LIU Learn"]) {
     await expect(quick.getByRole("link", { name: new RegExp(name) })).toBeVisible();
   }
+  // The hero's "Start your application" is the apply button; it isn't repeated here.
+  await expect(quick.getByRole("link", { name: /Apply/ })).toHaveCount(0);
   await expect(page.getByRole("link", { name: /See all 7 colleges/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Your calling is waiting." })).toBeVisible();
 });
