@@ -23,46 +23,48 @@ export function FeaturedPrograms() {
         }
       />
       {/* Phones: swipe sideways through the cards (the next one peeks in). */}
-      <ul
+      <div
         role="region"
         aria-label="Featured programs"
         tabIndex={0}
-        className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 xl:grid-cols-4"
+        className="-mx-5 snap-x snap-mandatory overflow-x-auto px-5 pb-2 md:mx-0 md:overflow-visible md:px-0 md:pb-0"
       >
-        {FEATURED_PROGRAMS.map((p) => (
-          <li key={p.title} className="w-[78%] flex-none snap-start md:w-auto">
-            <Link href={p.href} className="group relative block h-[380px] overflow-hidden bg-charcoal text-white md:h-[500px]">
-              {cloudinaryEnabled() && (
-                <Image
-                  src={p.image.id}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1280px) 25vw, 50vw"
-                  className="lite-hide object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        <ul className="flex gap-4 md:grid md:grid-cols-2 md:gap-6 xl:grid-cols-4">
+          {FEATURED_PROGRAMS.map((p) => (
+            <li key={p.title} className="w-[78%] flex-none snap-start md:w-auto">
+              <Link href={p.href} className="group relative block h-[380px] overflow-hidden bg-charcoal text-white md:h-[500px]">
+                {cloudinaryEnabled() && (
+                  <Image
+                    src={p.image.id}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1280px) 25vw, 50vw"
+                    className="lite-hide object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                )}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,15,18,0)_25%,rgba(14,15,18,.8)_58%,rgba(14,15,18,.97)_100%)]"
                 />
-              )}
-              <div
-                aria-hidden
-                className="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,15,18,0)_25%,rgba(14,15,18,.8)_58%,rgba(14,15,18,.97)_100%)]"
-              />
-              <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
-                <p className="font-display text-[12px] font-extrabold uppercase tracking-[0.12em] text-orange">{p.college}</p>
-                <h3 className="mt-2.5 font-display text-[28px] font-extrabold uppercase leading-none tracking-[-0.02em] md:text-[34px]">
-                  {p.title}
-                </h3>
-                <div className="mt-5 flex items-center justify-between border-t border-white/25 pt-4">
-                  <span>
-                    <b>${TUITION.perCourse}</b> / course
-                  </span>
-                  <span aria-hidden className="flex size-11 items-center justify-center bg-orange text-black">
-                    <ArrowRight size={20} />
-                  </span>
+                <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
+                  <p className="font-display text-[12px] font-extrabold uppercase tracking-[0.12em] text-orange">{p.college}</p>
+                  <h3 className="mt-2.5 font-display text-[28px] font-extrabold uppercase leading-none tracking-[-0.02em] md:text-[34px]">
+                    {p.title}
+                  </h3>
+                  <div className="mt-5 flex items-center justify-between border-t border-white/25 pt-4">
+                    <span>
+                      <b>${TUITION.perCourse}</b> / course
+                    </span>
+                    <span aria-hidden className="flex size-11 items-center justify-center bg-orange text-black">
+                      <ArrowRight size={20} />
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
       <Link href="/programs" className="btn btn-dark mt-5 w-full md:hidden">
         Browse all courses
         <ArrowRight size={18} aria-hidden />

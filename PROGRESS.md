@@ -39,7 +39,7 @@ Designs: `../design`, `../design 2`, `../design 3`, `../design 4`.
 | "Student Login" → **Student Portal**; footer adds Staff Portal and Verify a certificate | header, footer, quick actions | ✅ Done in phase 3 |
 | Domain via environment variables; LIU Learn links via `openLearn()` | `src/config/domains.ts` | ✅ Done in phase 3 |
 | Kenya behind a feature flag | `src/content/countries.ts` | ✅ Done in phase 3 |
-| Home stats use the old courses-site figures (to confirm) | `src/content/home.ts` | ✅ Done in phase 3 |
+| Home stats use the current site’s figures (459+ students, 35+ instructors, 60+ programs) until the back end supplies them | `src/content/home.ts` | ✅ Done |
 | `/verify` certificate verification (S25) — footer link exists, page not built yet | — | ⬜ Addendum step 6 |
 | Security headers (CSP, HSTS, frame-ancestors, Referrer-Policy) in `next.config.ts` | — | ⬜ Addendum §8, with the auth work |
 | WOBICON → `https://www.wobicon.org`; Video Gallery → YouTube | phase 4 pages | ✅ Done in phase 4 |

@@ -87,7 +87,7 @@ export const MAIN_NAV: NavItem[] = [
       {
         title: "Leadership",
         links: [
-          { label: "President’s Desk", href: "/about/president", description: "A message from Dr. Cletus Bassey" },
+          { label: "President’s Desk", href: "/about/president", description: "A message from Prof. Cletus Bassey" },
           { label: "Board of Regents", href: "/about/board-of-regents", description: "8 members" },
           { label: "Faculty & Staff", href: "/academics/faculty", description: "By college" },
         ],
@@ -105,7 +105,7 @@ export const MAIN_NAV: NavItem[] = [
       tone: "dark",
       chip: "From the President",
       title: "“Time to take the lead.”",
-      text: "A message from Dr. Cletus Bassey to every new student.",
+      text: "A message from Prof. Cletus Bassey to every new student.",
       cta: { label: "Read message", href: "/about/president" },
       image: MEDIA.cletusBasseySpeaking,
     },

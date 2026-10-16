@@ -244,13 +244,12 @@
 }
 
 /* Top-bar phone ticker: the next number rolls up from below. */
+/* Slide only (no fade), so the number never passes through low contrast. */
 @keyframes ticker-in {
   from {
     transform: translateY(100%);
-    opacity: 0;
   }
   to {
     transform: none;
-    opacity: 1;
   }
 }

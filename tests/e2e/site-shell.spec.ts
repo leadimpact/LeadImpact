@@ -17,6 +17,12 @@ test.describe("mobile header", () => {
     });
   }
 
+  test("top bar has a Home link", async ({ page }) => {
+    await page.goto("/about");
+    await page.getByRole("banner").getByRole("link", { name: "Home", exact: true }).click();
+    await expect(page).toHaveURL(/\/$/);
+  });
+
   test("Apply stays on screen after scrolling", async ({ page }) => {
     await page.goto("/");
     await page.mouse.wheel(0, 2000);
@@ -39,7 +45,7 @@ test.describe("mobile header", () => {
     await expect(dialog.locator("[aria-expanded=false]")).toHaveCount(0);
     await expect(dialog.getByRole("link", { name: "Apply now" })).toBeVisible();
     await expect(dialog.getByRole("link", { name: "WhatsApp" }).last()).toBeVisible();
-    await expect(dialog.getByRole("link", { name: "Call" })).toBeVisible();
+    await expect(dialog.getByRole("link", { name: "Call", exact: true })).toBeVisible();
 
     await page.keyboard.press("Escape");
     await expect(dialog).toBeHidden();

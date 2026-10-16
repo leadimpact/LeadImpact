@@ -82,8 +82,8 @@ function Ticker({ items, className, compact }: { items: Country[]; className?: s
             )}
             style={current && moved ? { animation: "ticker-in .45s cubic-bezier(.2,.7,.2,1)" } : undefined}
           >
-            <Phone size={compact ? 13 : 14} aria-hidden />
-            <span className={clsx("font-display font-extrabold tracking-[0.06em] text-orange", compact ? "text-[11.5px]" : "text-[12px]")}>{c.code3}</span>
+            <Phone size={compact ? 13 : 14} aria-hidden className={clsx(compact && "max-[379px]:hidden")} />
+            <span className={clsx("font-display font-extrabold tracking-[0.06em] text-orange", compact ? "text-[11.5px] max-[339px]:hidden" : "text-[12px]")}>{c.code3}</span>
             {c.phoneDisplay}
           </a>
         );

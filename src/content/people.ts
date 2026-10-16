@@ -9,10 +9,10 @@ export interface Person {
 }
 
 export const PRESIDENT = {
-  name: "Dr. Cletus Bassey",
+  name: "Prof. Cletus Bassey",
   role: "President & Chairman, Board of Regents",
   shortRole: "President",
-  photoLabel: "Dr. Cletus Bassey — official portrait",
+  photoLabel: "Prof. Cletus Bassey — official portrait",
   photo: MEDIA.cletusBassey,
   quote: {
     before: "We are shaping leaders who will make an ",
@@ -28,7 +28,7 @@ export const PRESIDENT = {
 export const PRESIDENT_MESSAGE = {
   hero: {
     title: "From the President’s desk",
-    subtitle: "A message from Dr. Cletus Bassey to students, partners and friends of LeadImpact University.",
+    subtitle: "A message from Prof. Cletus Bassey to students, partners and friends of LeadImpact University.",
     bannerLabel: "From the President’s desk · banner photo",
     banner: MEDIA.cletusBasseySpeaking,
   },
@@ -55,11 +55,11 @@ export interface BoardMember {
 
 /** The 8 members of the Board of Regents (names and photos as on the live site; bios still to come). */
 export const BOARD_OF_REGENTS: BoardMember[] = [
-  { slug: "cletus-bassey", name: "Dr. Cletus Bassey", role: "Board Chairman", photoLabel: "Bassey · portrait", photo: MEDIA.cletusBassey },
+  { slug: "cletus-bassey", name: "Prof. Cletus Bassey", role: "Board Chairman", photoLabel: "Bassey · portrait", photo: MEDIA.cletusBassey },
+  { slug: "blessing-bassey", name: "Dr. Blessing Bassey", role: "Board Member", photoLabel: "Bassey · portrait", photo: MEDIA.blessingBassey },
   { slug: "kathy-archibong", name: "Dr. Kathy Archibong", role: "Board Member", photoLabel: "Archibong · portrait", photo: MEDIA.kathyArchibong },
   { slug: "leon-walter", name: "Apst. Leon Walter", role: "Board Member", photoLabel: "Walter · portrait", photo: MEDIA.leonWalter },
   { slug: "manon-gurley", name: "Dr. Manon Gurley", role: "Board Member", photoLabel: "Gurley · portrait", photo: MEDIA.manonGurley },
-  { slug: "blessing-bassey", name: "Dr. Blessing Bassey", role: "Board Member", photoLabel: "Bassey · portrait", photo: MEDIA.blessingBassey },
   { slug: "ashong-c-ashong", name: "Prof. Ashong C. Ashong", role: "Board Member", photoLabel: "Ashong · portrait", photo: MEDIA.ashongAshong },
   { slug: "coral-wilkins", name: "Dr. Coral Wilkins", role: "Board Member", photoLabel: "Wilkins · portrait", photo: MEDIA.coralWilkins },
   { slug: "albert-udoh", name: "Dr. Albert Udoh", role: "Board Member", photoLabel: "Udoh · portrait", photo: MEDIA.albertUdoh },

@@ -56,12 +56,16 @@ export function UtilityBar() {
   );
 }
 
-/** Thin mobile utility row (SM1/SM2): rolling phone numbers, login and WhatsApp (country is set in the menu and footer). */
+/** Thin mobile utility row (SM1/SM2): rolling phone numbers, home, login and WhatsApp (country is set in the menu and footer). */
 export function MobileUtilityBar() {
   return (
-    <div className="flex h-[38px] items-center justify-between bg-black px-4 font-display text-[12.5px] font-bold uppercase tracking-[0.06em] text-on-dark">
-      <PhoneTicker compact />
-      <div className="flex h-full items-center gap-[14px]">
+    <div className="flex h-[38px] items-center justify-between gap-2 bg-black px-4 font-display text-[12px] font-bold uppercase tracking-[0.04em] text-on-dark max-[379px]:px-3 max-[339px]:text-[11px]">
+      <PhoneTicker compact className="flex-none" />
+      <div className="flex h-full items-center gap-3 max-[379px]:gap-2.5">
+        {/* Not everyone knows the crest goes home, so say it. */}
+        <Link href="/" className="flex h-full items-center">
+          Home
+        </Link>
         <Link href={APP_LINKS.studentPortal} className="flex h-full items-center">
           Login
         </Link>

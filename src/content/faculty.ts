@@ -29,7 +29,7 @@ export const FACULTY: FacultyMember[] = [
   { slug: "sylvanus-jackson", name: "Sylvanus Essiet Jackson", role: "Faculty", colleges: ["counseling"] },
   { slug: "blessing-bassey", name: "Dr. Blessing Bassey", role: "Faculty", colleges: ["education"], photo: MEDIA.blessingBassey },
   { slug: "kathy-archibong", name: "Dr. Kathy Archibong", role: "Faculty", colleges: ["education", "leadership"], photo: MEDIA.kathyArchibong },
-  { slug: "cletus-bassey", name: "Dr. Cletus Bassey", role: "Faculty · President", colleges: ["leadership"], photo: MEDIA.cletusBassey },
+  { slug: "cletus-bassey", name: "Prof. Cletus Bassey", role: "Faculty · President", colleges: ["leadership"], photo: MEDIA.cletusBassey },
   { slug: "ashong-ashong", name: "Prof. Ashong Ashong", role: "Faculty", colleges: ["communication"], photo: MEDIA.ashongAshong },
   { slug: "paul-ojo", name: "Dr. Paul Ojo", role: "Faculty", colleges: ["ministry"] },
   { slug: "xavier-john", name: "Dr. Xavier John", role: "Faculty", colleges: ["ministry"] },

@@ -77,7 +77,7 @@ the live site’s Board of Regents page.
 
 | Item | Where | What's needed |
 |---|---|---|
-| Statistics: “1,000+ learners” and “5+ instructors” from the old courses site (it also claims “20+ programmes” and “100+ courses”, which conflict) | `src/content/home.ts` → `STATS` | Real figures (shown with the dotted “to be confirmed” underline) |
+| Statistics: 459+ students, 35+ instructors, 60+ programs, from the current leadimpactuniversity.com site (the client’s choice until the back end supplies live counts). Note “60+ programs” counts differently from the 12 programs listed on the site | `src/content/home.ts` → `STATS`, `MOBILE_STATS` | Live figures from the FastAPI back end |
 | “12 programs” and “7 colleges” counts | `src/content/home.ts`, `src/content/about.ts` | Confirm the program count |
 | Testimonials — all 6 are bracketed placeholders. The old site has one from Samuel Henteng Jnr. (Accra, Ghana) | `src/content/testimonials.ts` | Real graduate quotes, names, programs and **consent** |
 | News and event dates (14 Nov, TBC 2027, 05 Dec, 20 Nov) and the stories themselves | `src/content/news.ts` | Real dates and articles (dates carry the dotted marking) |
@@ -91,9 +91,11 @@ the live site’s Board of Regents page.
 
 ## Mobile home (SM1)
 
-SM1 omits several desktop sections, so on phones the home page follows SM1 and hides: course finder,
-stats bar, featured programs, campuses, testimonials, why choose and certified programs. Confirm the client
-is happy with the shorter mobile page.
+SM1 omits several desktop sections; at the client’s request (most students use phones) every home section
+now has a phone layout instead: stacked course finder, swipeable programs and campuses, photo-led testimonial,
+icon list for “Why choose LIU” and the certificate band. Only the black stats bar stays desktop-only (phones
+show the same figures as stat cards). Phones also get “Explore LIU” under the quick actions: every menu section
+(plus Students) with its key pages as large buttons, and the mobile top bar has a HOME link next to LOGIN.
 
 
 ## Admissions, tuition and scholarships (phase 3)

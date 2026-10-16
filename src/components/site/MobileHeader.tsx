@@ -50,6 +50,7 @@ function HeaderRow({
         crestClassName="relative z-10 h-[92px] translate-y-[14px] drop-shadow-[0_8px_12px_rgba(14,15,18,0.35)]"
         crestSizes="80px"
         priority
+        wordmarkClassName="max-[359px]:hidden"
       />
       <div className="flex h-full">
         <Link

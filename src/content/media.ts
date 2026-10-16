@@ -40,8 +40,8 @@ export const MEDIA = {
   learnPhone: a("learn/phone-home", `${DESIGNS}/LIU-L03-m-learn-home-offline-state.png`, "LIU Learn phone app, offline"),
   certificate: a("home/certificate", `${LIVE}/2019/03/02/liucert690-608.jpg`, "Sample LeadImpact University diploma certificate"),
 
-  cletusBassey: a("people/cletus-bassey", `${SUPPLIED}/leadimpact-regent-president.jpg`, "Dr. Cletus Bassey"),
-  cletusBasseySpeaking: a("people/cletus-bassey-speaking", `${SUPPLIED}/leadimpact-president2.jpg`, "Dr. Cletus Bassey speaking at a leadership masterclass"),
+  cletusBassey: a("people/cletus-bassey", `${SUPPLIED}/leadimpact-regent-president.jpg`, "Prof. Cletus Bassey"),
+  cletusBasseySpeaking: a("people/cletus-bassey-speaking", `${SUPPLIED}/leadimpact-president2.jpg`, "Prof. Cletus Bassey speaking at a leadership masterclass"),
   kathyArchibong: a("people/kathy-archibong", `${SUPPLIED}/leadimpact-regent-member2.jpg`, "Dr. Kathy Archibong"),
   leonWalter: a("people/leon-walter", `${SUPPLIED}/leadimpact-regent-member4.jpeg`, "Apst. Leon Walter"),
   manonGurley: a("people/manon-gurley", `${SUPPLIED}/leadimpact-regent-member6.jpg`, "Dr. Manon Gurley"),

@@ -90,3 +90,15 @@ test("mobile home follows SM1: quick actions, colleges and closing CTA", async (
   await expect(page.getByRole("link", { name: /See all 7 colleges/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Your calling is waiting." })).toBeVisible();
 });
+
+test("phones get every menu section under Explore LIU", async ({ page }) => {
+  test.skip((page.viewportSize()?.width ?? 0) >= 768, "mobile only — desktop has the menu bar");
+  await page.goto("/");
+  const explore = page.getByRole("region", { name: "Explore LIU" });
+  for (const section of ["The University", "Admissions", "Programs", "Students", "Academics", "Affiliates", "Media", "Contact"]) {
+    await expect(explore.getByRole("heading", { name: section })).toBeVisible();
+  }
+  await explore.getByRole("link", { name: "Scholarships" }).click();
+  await expect(page).toHaveURL(/\/admissions\/scholarships$/);
+});
+
