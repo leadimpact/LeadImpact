@@ -1,0 +1,69 @@
+/*
+ * LIU design tokens (v3) — the single source for colour, type, radius and spacing.
+ * Hex values were sampled by eye from the designs: confirm them against LIU's
+ * logo files before launch (tracked in CHANGES_NEEDED.md).
+ */
+@theme {
+  /* Brand */
+  --color-orange: #f7731e; /* fills, bars, buttons — text on orange is black, never white */
+  --color-orange-hover: #e8650f;
+  --color-orange-text: #b8480a; /* orange text/links/icons on white and warm greys (AA ≥ 4.6:1); brief said #C24E0B, which fails on #F4F2EF */
+  --color-orange-numeral: #df630d; /* large orange numerals on light backgrounds (AA large text ≥ 3:1) */
+  --color-orange-deep: #a8430a; /* text on orange-tint chips */
+  --color-orange-soft: #fdeee4;
+  --color-orange-tint: #fff1e6;
+
+  /* Darks */
+  --color-black: #0e0f12; /* utility bar, footer */
+  --color-charcoal: #17191e; /* dark sections, sidebars */
+  --color-line-dark: #2a2c31;
+  --color-on-dark: #cfccc7; /* body text on black/charcoal */
+  --color-on-dark-muted: #8f8c87;
+
+  /* Neutrals */
+  --color-ink: #16181d;
+  --color-muted: #5e6168;
+  --color-line: #e3dfda;
+  --color-line-soft: #efedea;
+  --color-bg: #f6f5f3; /* warm background */
+  --color-white: #ffffff;
+
+  /* Status */
+  --color-success: #1e7b4f;
+  --color-success-soft: #e2f4ea;
+  --color-error: #b42318;
+  --color-error-soft: #fdecea;
+  --color-whatsapp: #1faf54; /* brand green — decorative / text on black only */
+  --color-whatsapp-strong: #137a3a; /* button fill with white text (AA) */
+  --color-whatsapp-on-dark: #9fe3bc;
+
+  /* Type */
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
+
+  /* Corners: square to 4–10px max */
+  --radius-btn: 4px;
+  --radius-sm: 6px;
+  --radius-card: 8px;
+  --radius-lg: 10px;
+
+  /* Layout */
+  --breakpoint-nav: 80rem; /* 1280px — below this the mobile header is used */
+}
+
+:root {
+  --page-gutter: 20px;
+  --tap: 48px; /* minimum tap target */
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-gutter: 40px;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --page-gutter: 80px;
+  }
+}

@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LeadImpact University — website, portals and LIU Learn
 
-## Getting Started
+One Next.js app with three route groups:
 
-First, run the development server:
+| Group | Path | Pattern |
+|---|---|---|
+| `(site)` | `/` | Public university website — header with dropdowns, long-form pages, footer |
+| `(portal)` | `/portal` | Admissions, registration and payments web app (phase 5+) |
+| `(learn)` | `/learn` | LIU Learn e-learning PWA, offline-first (phase 7) |
+
+The designs live one level up in `../design`, `../design 2` and `../design 3`. The build brief is
+`../LIU_CLAUDE_CODE_PROMPT.md`.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev            # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Script | What it does |
+|---|---|
+| `pnpm build` / `pnpm start` | Production build and server |
+| `pnpm lint` | ESLint |
+| `pnpm test` | Unit tests (Vitest) |
+| `pnpm test:e2e` | Browser tests at 1440px and 390px, including axe accessibility checks (Playwright; builds must be current) |
+| `pnpm images:upload` | Uploads any new photos in `src/content/media.ts` to Cloudinary (`--dry-run`, `--force`, `--prune`; needs the Cloudinary keys in `.env`) |
+| `pnpm screenshot` | Captures each screen into `screenshots/` for comparison with the design PNGs (needs `pnpm start -p 3100` running) |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Playwright uses your installed Google Chrome locally, so no browser download is needed. In CI, run
+`npx playwright install chromium` first.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Where things are
 
-## Learn More
+- `src/design/tokens.css` — every colour, font, radius and spacing token (one file).
+- `src/content/` — typed content: site details, countries, navigation. Pages read from here.
+- `src/components/site/` — website header, dropdowns, mobile menu, footer.
+- `src/lib/` — country preference (remembered in `localStorage`), WhatsApp links, search.
+- `CHANGES_NEEDED.md` — every placeholder that must be replaced before launch.
 
-To learn more about Next.js, take a look at the following resources:
+## How to demo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+_Filled in as the phases land (website → apply → register → pay → LIU Learn offline)._

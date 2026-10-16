@@ -1,26 +1,256 @@
 @import "tailwindcss";
+@import "../design/tokens.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  body {
+    background: var(--color-white);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Buttons: UPPERCASE, .06em tracking, weight 800, 4px corners, 52px tall */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 24px;
+    border: 2px solid transparent;
+    border-radius: var(--radius-btn);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .btn-sm {
+    min-height: 48px;
+    padding: 0 16px;
+    font-size: 13.5px;
+  }
+  .btn-orange {
+    background: var(--color-orange);
+    color: var(--color-black);
+  }
+  .btn-orange:hover {
+    background: var(--color-orange-hover);
+  }
+  .btn-outline {
+    border-color: var(--color-charcoal);
+    color: var(--color-charcoal);
+    background: var(--color-white);
+  }
+  .btn-outline:hover {
+    background: var(--color-bg);
+  }
+  .btn-outline-light {
+    border-color: var(--color-white);
+    color: var(--color-white);
+  }
+  .btn-outline-light:hover {
+    background: rgb(255 255 255 / 0.08);
+  }
+  .btn-dark {
+    background: var(--color-charcoal);
+    color: var(--color-white);
+  }
+  .btn-dark:hover {
+    background: var(--color-black);
+  }
+  .btn-white {
+    background: var(--color-white);
+    color: var(--color-black);
+  }
+  .btn-lg {
+    min-height: 60px;
+    padding: 0 30px;
+    font-size: 16px;
+  }
+  .btn-whatsapp {
+    background: var(--color-whatsapp-strong);
+    color: var(--color-white);
+  }
+
+  /* Eyebrow label with the 10px orange square */
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-orange-text);
+  }
+  .eyebrow::before {
+    content: "";
+    flex: none;
+    width: 10px;
+    height: 10px;
+    background: var(--color-orange);
+  }
+  .on-dark .eyebrow {
+    color: var(--color-orange);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 11.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .chip-orange {
+    background: var(--color-orange-tint);
+    color: var(--color-orange-deep);
+  }
+
+  /* Visible placeholder — every instance must be listed in CHANGES_NEEDED.md */
+  .placeholder {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--color-orange);
+    background: linear-gradient(135deg, #3b3e45 0%, #2e3036 55%, #24262b 100%);
+  }
+  .placeholder::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgb(255 255 255 / 0.035) 0 2px,
+      transparent 2px 14px
+    );
+  }
+  .placeholder > * {
+    position: relative;
+    z-index: 1;
+  }
+  .placeholder-label {
+    font-family: var(--font-display);
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.5;
+    padding: 0 16px;
+    color: #edeae6;
+  }
+}
+
+/* Inline placeholder text (stats, dates, testimonials): visibly marked until confirmed. */
+@layer components {
+  .tbc {
+    text-decoration: underline dotted var(--color-orange) 2px;
+    text-underline-offset: 0.18em;
+    text-decoration-skip-ink: none;
+  }
+}
+
+/* Hero word window */
+@keyframes wipe-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@utility px-page {
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
+}
+
+/* Lite mode (Data Saver / 2G): no decorative photos. */
+[data-lite] .lite-hide {
+  display: none !important;
+}
+
+/* Hero word: the slide photo shows through the letters. */
+.hero-word {
+  filter: brightness(1.7) contrast(1.05) saturate(1.15);
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero-word {
+    filter: none;
+    background-image: none !important;
+    color: var(--color-white);
+  }
+}
+[data-lite] .hero-word {
+  background-image: none !important;
+  filter: none;
+  color: var(--color-white);
+}
+
+/* Top-bar phone ticker: the next number rolls up from below. */
+@keyframes ticker-in {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
 }
