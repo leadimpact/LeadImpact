@@ -6,7 +6,8 @@ import { cloudinaryEnabled } from "@/config/media";
 import { Crest } from "./Crest";
 
 interface LogoProps {
-  size?: "md" | "sm";
+  /** xs: the phone header, where the name shares the row with Apply and Login. */
+  size?: "md" | "sm" | "xs";
   tone?: "light" | "dark";
   /** Crest height and placement, e.g. a tall crest that overhangs the header edges. */
   crestClassName?: string;
@@ -21,7 +22,8 @@ interface LogoProps {
 
 /** The official 3D crest (Cloudinary) and wordmark; the flat Crest stands in when Cloudinary is off. */
 export function Logo({ size = "md", tone = "light", crestClassName, crestSizes = "64px", priority, wordmarkClassName, className }: LogoProps) {
-  const sm = size === "sm";
+  const sm = size === "sm" || size === "xs";
+  const xs = size === "xs";
   const crestClass = crestClassName ?? (sm ? "h-[42px]" : "h-[52px]");
   return (
     <Link
@@ -46,7 +48,7 @@ export function Logo({ size = "md", tone = "light", crestClassName, crestSizes =
         <span
           className={clsx(
             "block font-display font-extrabold tracking-[-0.02em]",
-            sm ? "text-[18px]" : "text-[21px]",
+            xs ? "text-[16px]" : sm ? "text-[18px]" : "text-[21px]",
             tone === "dark" ? "text-white" : "text-charcoal",
           )}
         >
@@ -54,8 +56,8 @@ export function Logo({ size = "md", tone = "light", crestClassName, crestSizes =
         </span>
         <span
           className={clsx(
-            "mt-[3px] block font-display font-semibold tracking-[0.2em]",
-            sm ? "text-[10.5px]" : "text-[12.5px]",
+            "mt-[3px] block font-display font-semibold",
+            xs ? "text-[9.5px] tracking-[0.18em]" : sm ? "text-[10.5px] tracking-[0.2em]" : "text-[12.5px] tracking-[0.2em]",
             tone === "dark" ? "text-[#B9B6B1]" : "text-muted",
           )}
         >

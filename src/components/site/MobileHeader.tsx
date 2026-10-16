@@ -17,23 +17,22 @@ export function MobileHeader() {
       <MobileUtilityBar />
       <div className="flex h-[72px] items-center justify-between border-b border-line bg-white pl-4">
         <Logo
-          size="sm"
-          className="pl-[94px] max-[379px]:pl-[86px]"
+          size="xs"
+          className="pl-[92px] max-[379px]:pl-[86px]"
           crestClassName="absolute bottom-[6px] left-3 z-10 h-[100px] drop-shadow-[0_8px_12px_rgba(14,15,18,0.35)]"
           crestSizes="88px"
           priority
-          wordmarkClassName="max-[379px]:hidden"
         />
         <div className="flex h-full">
           <Link
             href={APP_LINKS.apply}
-            className="flex h-full items-center bg-orange px-4 font-display text-[13.5px] font-extrabold uppercase tracking-[0.08em] text-black hover:bg-orange-hover"
+            className="flex h-full items-center bg-orange px-4 font-display text-[13.5px] max-[379px]:px-3 max-[379px]:text-[12.5px] max-[339px]:px-2.5 max-[339px]:text-[12px] font-extrabold uppercase tracking-[0.08em] text-black hover:bg-orange-hover"
           >
             Apply
           </Link>
           <Link
             href={APP_LINKS.studentPortal}
-            className="flex w-[72px] flex-col items-center justify-center gap-[3px] bg-charcoal font-display text-[10.5px] font-extrabold uppercase tracking-[0.08em] text-white"
+            className="flex w-[72px] flex-col items-center justify-center gap-[3px] bg-charcoal max-[379px]:w-[60px] max-[339px]:w-[52px] font-display text-[10.5px] font-extrabold uppercase tracking-[0.08em] text-white"
           >
             <User size={22} aria-hidden />
             Login

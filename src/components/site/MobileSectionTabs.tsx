@@ -11,7 +11,7 @@ import { useCountry } from "@/lib/country";
 
 // Text sized so "ADMISSIONS" fits a quarter of the narrowest phones (320px).
 const tab =
-  "flex min-h-11 w-full flex-col items-center justify-center rounded-[4px] px-0.5 text-center font-display text-[11px] font-extrabold uppercase leading-none tracking-[0.01em] max-[379px]:text-[10px] max-[339px]:text-[9px]";
+  "flex min-h-[34px] w-full flex-col items-center justify-center rounded-[4px] px-0.5 py-1 text-center font-display text-[11px] font-extrabold uppercase leading-none tracking-[0.01em] max-[379px]:text-[10px] max-[339px]:text-[9px]";
 
 /** Reads the current path (needs Suspense under Cache Components); SiteHeader wraps it. */
 export function ActiveMobileSectionTabs() {
@@ -41,8 +41,8 @@ export function MobileSectionTabs({ pathname }: { pathname: string | null }) {
   const openItem = MAIN_NAV.find((i) => i.kind !== "link" && i.label === open);
 
   return (
-    <nav aria-label="Sections" className="bg-black px-3 pb-3 pt-2.5 nav:hidden">
-      <ul className="grid grid-cols-4 gap-1.5">
+    <nav aria-label="Sections" className="bg-black px-3 py-2 nav:hidden">
+      <ul className="grid grid-cols-4 gap-1">
         {MAIN_NAV.map((item) => (
           <li key={item.label}>
             <Tab
@@ -120,7 +120,7 @@ function Tab({
       className={clsx(tab, tone)}
     >
       {label}
-      <ChevronDown size={13} aria-hidden className={clsx("mt-0.5 flex-none transition-transform", expanded && "rotate-180")} />
+      <ChevronDown size={11} aria-hidden className={clsx("flex-none transition-transform", expanded && "rotate-180")} />
     </button>
   );
 }
