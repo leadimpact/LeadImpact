@@ -1,6 +1,5 @@
 import { APP_LINKS } from "./site";
-import { COUNTRY_COUNT, COUNTRY_LIST } from "./countries";
-import { affiliateHref } from "./navigation";
+import { COUNTRY_COUNT } from "./countries";
 import { MEDIA, type MediaAsset } from "./media";
 
 export interface HeroSlide {
@@ -40,111 +39,6 @@ export const QUICK_ACTIONS: { label: string; mobileLabel: string; detail: string
   { label: "Pay tuition", mobileLabel: "Pay tuition", detail: "Card, bank, mobile money", mobileDetail: "Card, bank, mobile money", href: APP_LINKS.payTuition, icon: "pay" },
   { label: "Student portal", mobileLabel: "Student portal", detail: "Registration, results, fees", mobileDetail: "Registration, results, fees", href: APP_LINKS.studentPortal, icon: "login" },
   { label: "LIU Learn", mobileLabel: "LIU Learn", detail: "Study online — even offline", mobileDetail: "Study online — even offline", href: APP_LINKS.learn, icon: "learn" },
-];
-
-export type ExploreIcon = "university" | "admissions" | "academics" | "programs" | "students" | "affiliates" | "media" | "contact";
-
-export interface ExploreSection {
-  title: string;
-  icon: ExploreIcon;
-  /** The section's main page ("See all"). */
-  href: string;
-  links: { label: string; href: string }[];
-}
-
-/**
- * Phones (mobile first): the desktop menu's sections and their key pages, laid out on the home
- * page so nothing depends on finding the menu button.
- */
-export const EXPLORE: ExploreSection[] = [
-  {
-    title: "The University",
-    icon: "university",
-    href: "/about",
-    links: [
-      { label: "About LIU", href: "/about" },
-      { label: "President’s Desk", href: "/about/president" },
-      { label: "Board of Regents", href: "/about/board-of-regents" },
-      { label: "Statement of Faith", href: "/about#statement-of-faith" },
-    ],
-  },
-  {
-    title: "Admissions",
-    icon: "admissions",
-    href: "/admissions",
-    links: [
-      { label: "How to apply", href: "/admissions" },
-      { label: "Requirements", href: "/admissions#requirements" },
-      { label: "Tuition & fees", href: "/admissions/tuition" },
-      { label: "Scholarships", href: "/admissions/scholarships" },
-    ],
-  },
-  {
-    title: "Programs",
-    icon: "programs",
-    href: "/programs",
-    links: [
-      { label: "All programs", href: "/programs" },
-      { label: "Certificate", href: "/programs?level=certificate" },
-      { label: "Diploma", href: "/programs?level=diploma" },
-      { label: "Bachelor’s", href: "/programs?level=bachelor" },
-      { label: "Master’s", href: "/programs?level=master" },
-      { label: "Doctorate", href: "/programs?level=doctorate" },
-    ],
-  },
-  {
-    title: "Students",
-    icon: "students",
-    href: APP_LINKS.studentPortal,
-    links: [
-      { label: "Student portal", href: APP_LINKS.studentPortal },
-      { label: "Pay tuition", href: APP_LINKS.payTuition },
-      { label: "Course registration", href: APP_LINKS.courseRegistration },
-      { label: "Verify a certificate", href: APP_LINKS.verifyCertificate },
-    ],
-  },
-  {
-    title: "Academics",
-    icon: "academics",
-    href: "/academics/academic-affairs",
-    links: [
-      { label: "Academic Affairs", href: "/academics/academic-affairs" },
-      { label: "Faculty & Staff", href: "/academics/faculty" },
-      { label: "Credit transfer", href: "/academics/academic-affairs#credit-transfer" },
-      { label: "Honorary doctorate", href: "/academics/honorary-doctorate" },
-    ],
-  },
-  {
-    title: "Affiliates",
-    icon: "affiliates",
-    href: "/contact#campuses",
-    links: [
-      ...COUNTRY_LIST.map((c) => ({ label: c.name, href: affiliateHref(c.code) })),
-      { label: "Become an affiliate", href: "/affiliates/become-an-affiliate" },
-    ],
-  },
-  {
-    title: "Media",
-    icon: "media",
-    href: "/media/blog",
-    links: [
-      { label: "News & stories", href: "/media/blog" },
-      { label: "Events & WOBICON", href: "/activities" },
-      { label: "Photo gallery", href: "/media/gallery" },
-      { label: "Videos", href: "/media/gallery#videos" },
-    ],
-  },
-  {
-    title: "Contact",
-    icon: "contact",
-    href: "/contact",
-    links: [
-      { label: "Contact us", href: "/contact" },
-      { label: "Campus contacts", href: "/contact#campuses" },
-      { label: "Thinking about LIU?", href: "/prospective-students" },
-      { label: "Careers", href: "/contact#careers" },
-    ],
-  },
 ];
 
 export const PILLARS = [

@@ -32,6 +32,8 @@ export interface FeatureCard {
 
 interface MenuBase {
   label: string;
+  /** Shorter label for the phone section tabs, e.g. "University". */
+  shortLabel?: string;
   href: string;
   /** Path prefixes that make this item the current section. */
   match: string[];
@@ -57,6 +59,23 @@ export function isCurrentSection(item: NavItem, pathname: string | null): boolea
   return item.match.some((m) => (m === "/" ? pathname === "/" : pathname === m || pathname.startsWith(`${m}/`)));
 }
 
+/**
+ * Pages listed under a section's phone tab (the desktop dropdown's links, without repeats);
+ * the countries menu lists each campus country, then "Become an affiliate".
+ */
+export function sectionLinks(menu: NavMenu, countries: { code: CountryCode; name: string }[]): NavLink[] {
+  if (menu.kind === "countries") {
+    return [
+      ...countries.map((c) => ({ label: c.name, href: affiliateHref(c.code) })),
+      { label: "Become an affiliate", href: "/affiliates/become-an-affiliate" },
+    ];
+  }
+  const seen = new Set<string>();
+  return menu.groups
+    .flatMap((g) => g.links)
+    .filter((l) => (seen.has(l.href) ? false : (seen.add(l.href), true)));
+}
+
 export const COUNTRY_SLUGS: Record<CountryCode, string> = {
   US: "united-states",
   NG: "nigeria",
@@ -72,6 +91,7 @@ export const MAIN_NAV: NavItem[] = [
   {
     kind: "links",
     label: "The University",
+    shortLabel: "University",
     href: "/about",
     match: ["/about"],
     groups: [
@@ -376,6 +396,7 @@ export const FOOTER_COLUMNS: NavGroup[] = [
 
 /** Mobile footer (SM1): one row per section, each linking to the section's main page. */
 export const MOBILE_FOOTER_LINKS: NavLink[] = [
+  { label: "Search", href: "/search" },
   { label: "University", href: "/about" },
   { label: "Admissions", href: "/admissions" },
   { label: "Academics", href: "/academics/academic-affairs" },

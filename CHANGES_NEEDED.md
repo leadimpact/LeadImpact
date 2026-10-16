@@ -94,8 +94,10 @@ the live site’s Board of Regents page.
 SM1 omits several desktop sections; at the client’s request (most students use phones) every home section
 now has a phone layout instead: stacked course finder, swipeable programs and campuses, photo-led testimonial,
 icon list for “Why choose LIU” and the certificate band. Only the black stats bar stays desktop-only (phones
-show the same figures as stat cards). Phones also get “Explore LIU” under the quick actions: every menu section
-(plus Students) with its key pages as large buttons, and the mobile top bar has a HOME link next to LOGIN.
+show the same figures as stat cards). Phones have no menu button: the desktop menu appears as 8 orange section tabs (two rows) on the dark band
+under the header, on every page; Home and Contact are links, the others open a panel of that section’s pages.
+The mobile header keeps Apply and Login, the crest spans the top bar and header row, the whole header sticks,
+and search moved to the mobile footer links.
 
 
 ## Admissions, tuition and scholarships (phase 3)

@@ -17,12 +17,6 @@ test.describe("mobile header", () => {
     });
   }
 
-  test("top bar has a Home link", async ({ page }) => {
-    await page.goto("/about");
-    await page.getByRole("banner").getByRole("link", { name: "Home", exact: true }).click();
-    await expect(page).toHaveURL(/\/$/);
-  });
-
   test("Apply stays on screen after scrolling", async ({ page }) => {
     await page.goto("/");
     await page.mouse.wheel(0, 2000);
@@ -30,36 +24,31 @@ test.describe("mobile header", () => {
     await expect(page.getByRole("banner").getByRole("link", { name: "Apply", exact: true })).toBeInViewport();
   });
 
-  test("menu lists every section openly and closes with Esc", async ({ page }) => {
-    await page.goto("/");
-    const menuButton = page.getByRole("button", { name: "Menu" });
-    await menuButton.click();
-
-    const dialog = page.getByRole("dialog", { name: "Site menu" });
-    await expect(dialog).toBeVisible();
-    for (const heading of ["The University", "Admissions", "Study", "Students"]) {
-      await expect(dialog.getByRole("heading", { name: heading })).toBeVisible();
+  test("section tabs: Home links, a section opens its pages, Esc closes", async ({ page }) => {
+    await page.goto("/about");
+    const tabs = page.getByRole("navigation", { name: "Sections" });
+    for (const name of ["The University", "Admissions", "Academics", "Programs", "Affiliates", "Media"]) {
+      await expect(tabs.getByRole("button", { name })).toBeVisible();
     }
-    // No accordions: every link is already visible, nothing is collapsed.
-    await expect(dialog.getByRole("link", { name: "Scholarships" })).toBeVisible();
-    await expect(dialog.locator("[aria-expanded=false]")).toHaveCount(0);
-    await expect(dialog.getByRole("link", { name: "Apply now" })).toBeVisible();
-    await expect(dialog.getByRole("link", { name: "WhatsApp" }).last()).toBeVisible();
-    await expect(dialog.getByRole("link", { name: "Call", exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Menu" })).toHaveCount(0);
 
+    const admissions = tabs.getByRole("button", { name: "Admissions" });
+    await admissions.click();
+    await expect(admissions).toHaveAttribute("aria-expanded", "true");
+    await expect(tabs.getByRole("link", { name: "Scholarships" })).toBeVisible();
     await page.keyboard.press("Escape");
-    await expect(dialog).toBeHidden();
-    await expect(menuButton).toBeFocused();
+    await expect(tabs.getByRole("link", { name: "Scholarships" })).toBeHidden();
+
+    await tabs.getByRole("link", { name: "Home", exact: true }).click();
+    await expect(page).toHaveURL(/\/$/);
   });
 
-  test("affiliate link follows the selected country", async ({ page }) => {
+  test("Affiliates tab lists each campus country", async ({ page }) => {
     await page.goto("/");
-    await page.getByLabel(/Your country/).filter({ visible: true }).first().selectOption("UG");
-    await page.getByRole("button", { name: "Menu" }).click();
-    await expect(page.getByRole("dialog").getByRole("link", { name: "Affiliate campuses" })).toHaveAttribute(
-      "href",
-      "/affiliates/uganda",
-    );
+    const tabs = page.getByRole("navigation", { name: "Sections" });
+    await tabs.getByRole("button", { name: "Affiliates" }).click();
+    await expect(tabs.getByRole("link", { name: "Uganda" })).toHaveAttribute("href", "/affiliates/uganda");
+    await expect(tabs.getByRole("link", { name: "Become an affiliate" })).toBeVisible();
   });
 });
 
@@ -148,7 +137,7 @@ for (const path of SITE_PAGES) {
 
 test("no axe violations with the menu open", async ({ page }) => {
   await page.goto("/");
-  if (isMobile(page)) await page.getByRole("button", { name: "Menu" }).click();
+  if (isMobile(page)) await page.getByRole("navigation", { name: "Sections" }).getByRole("button", { name: "The University" }).click();
   else await page.getByRole("button", { name: "The University" }).click();
   const results = await axe(page).analyze();
   expect(results.violations.map((v) => `${v.id}: ${v.nodes.length}`)).toEqual([]);
