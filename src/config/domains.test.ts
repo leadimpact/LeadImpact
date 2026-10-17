@@ -50,6 +50,7 @@ describe("routeRequest", () => {
     expect(routeRequest("staff.leadimpactuniversity.education", "/sign-in", "", PROD)).toEqual({
       type: "rewrite",
       pathname: "/staff/sign-in",
+      noindex: true,
     });
     expect(routeRequest("portal.leadimpactuniversity.education", "/", "", PROD)).toEqual({ type: "rewrite", pathname: "/portal" });
   });
@@ -62,7 +63,7 @@ describe("routeRequest", () => {
   });
 
   it("leaves already-prefixed subdomain paths alone", () => {
-    expect(routeRequest("learn.localhost:3000", "/learn/courses", "", {})).toEqual({ type: "next" });
+    expect(routeRequest("learn.localhost:3000", "/learn/courses", "", {})).toEqual({ type: "next", noindex: true });
   });
 
   it("redirects main-domain app paths to the configured app URL", () => {
@@ -82,6 +83,14 @@ describe("routeRequest", () => {
 
   it("serves app paths locally when no app URL is configured", () => {
     expect(routeRequest("localhost:3000", "/portal/pay", "", {})).toEqual({ type: "next" });
+  });
+
+  it("marks only the private apps (staff, LIU Learn) noindex; public portals stay indexable", () => {
+    expect(routeRequest("localhost:3000", "/staff/sign-in", "", {})).toEqual({ type: "next", noindex: true });
+    expect(routeRequest("portal.leadimpactuniversity.education", "/sign-in", "", PROD)).toEqual({
+      type: "rewrite",
+      pathname: "/portal/sign-in",
+    });
   });
 
   it("never touches website pages", () => {

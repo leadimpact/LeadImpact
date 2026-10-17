@@ -102,7 +102,7 @@ test("mobile home follows SM1: quick actions, colleges and closing CTA", async (
   test.skip((page.viewportSize()?.width ?? 0) >= 768, "mobile only");
   await page.goto("/");
   const quick = page.getByRole("navigation", { name: "Quick actions" });
-  for (const name of ["Pay tuition", "Student portal", "LIU Learn"]) {
+  for (const name of ["Pay tuition", "Sign in", "Learn online"]) {
     await expect(quick.getByRole("link", { name: new RegExp(name) })).toBeVisible();
   }
   // The hero's "Start your application" is the apply button; it isn't repeated here.

@@ -9,13 +9,19 @@ export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const decision = routeRequest(request.headers.get("host"), pathname, search);
 
+  if (decision.type === "redirect") return NextResponse.redirect(decision.url, 308);
+
+  let response: NextResponse;
   if (decision.type === "rewrite") {
     const url = request.nextUrl.clone();
     url.pathname = decision.pathname;
-    return NextResponse.rewrite(url);
+    response = NextResponse.rewrite(url);
+  } else {
+    response = NextResponse.next();
   }
-  if (decision.type === "redirect") return NextResponse.redirect(decision.url, 308);
-  return NextResponse.next();
+  // Staff portal and LIU Learn are shared by email only; keep them out of search results.
+  if (decision.noindex) response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  return response;
 }
 
 export const config = {

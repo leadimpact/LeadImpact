@@ -1,4 +1,4 @@
-import { EMAILS, appUrl, openLearn, siteOrigin } from "@/config/domains";
+import { EMAILS, appUrl, siteOrigin } from "@/config/domains";
 import { COUNTRY_COUNT_WORD } from "./countries";
 
 export const SITE = {
@@ -22,15 +22,20 @@ export const SITE = {
 } as const;
 
 /**
- * Entry points into the portals and LIU Learn. They become the configured app URLs in
- * production (NEXT_PUBLIC_ADMISSIONS_URL, …_PORTAL_URL, …_STAFF_URL, …_LEARN_URL).
+ * The only portal entry points the public website links to. They become the configured app
+ * URLs in production (NEXT_PUBLIC_ADMISSIONS_URL, …_PORTAL_URL).
+ *
+ * Not linked anywhere public (the client's decision): the staff portal, the LIU Learn platform
+ * and course registration. Staff get their portal address by email; students get Learn and
+ * course registration in their welcome email and on the student dashboard (appUrl/openLearn
+ * in src/config/domains.ts build those links).
  */
 export const APP_LINKS = {
   apply: appUrl("admissions", "/apply"),
-  studentPortal: appUrl("portal", "/sign-in"),
-  staffPortal: appUrl("staff", "/sign-in"),
+  /** One sign-in for applicants and students (the same account system); it routes by role. */
+  signIn: appUrl("portal", "/sign-in"),
   payTuition: appUrl("portal", "/pay"),
-  courseRegistration: appUrl("portal", "/register"),
-  learn: openLearn(),
+  /** The public LIU Learn page — advertising only; its buttons lead to Apply. */
+  learnOnline: "/learn-online",
   verifyCertificate: "/verify",
 } as const;

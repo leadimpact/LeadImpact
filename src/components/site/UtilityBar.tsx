@@ -41,7 +41,7 @@ export function UtilityBar() {
           <Link
             key={l.href}
             href={l.href}
-            className={clsx(cell, l.href === APP_LINKS.learn && "text-orange hover:text-orange", l.wideOnly && "max-[1359px]:hidden")}
+            className={clsx(cell, l.href === APP_LINKS.learnOnline && "text-orange hover:text-orange", l.wideOnly && "max-[1359px]:hidden")}
           >
             {l.label}
           </Link>

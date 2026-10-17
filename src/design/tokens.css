@@ -5,8 +5,8 @@
  */
 @theme {
   /* Brand */
-  --color-orange: #f7731e; /* fills, bars, buttons — text on orange is black, never white */
-  --color-orange-hover: #e8650f;
+  --color-orange: #fa9441; /* light orange: fills, bars, buttons — text on orange is black, never white (was #f7731e) */
+  --color-orange-hover: #f2832c;
   --color-orange-text: #b8480a; /* orange text/links/icons on white and warm greys (AA ≥ 4.6:1); brief said #C24E0B, which fails on #F4F2EF */
   --color-orange-numeral: #df630d; /* large orange numerals on light backgrounds (AA large text ≥ 3:1) */
   --color-orange-deep: #a8430a; /* text on orange-tint chips */

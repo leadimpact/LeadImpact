@@ -282,9 +282,9 @@ export const MAIN_NAV: NavItem[] = [
 ];
 
 export const UTILITY_LINKS: NavLink[] = [
-  { label: "Student Portal", href: APP_LINKS.studentPortal },
+  { label: "Sign in", href: APP_LINKS.signIn },
   { label: "Pay Tuition", href: APP_LINKS.payTuition },
-  { label: "LIU Learn", href: APP_LINKS.learn },
+  { label: "Learn online", href: APP_LINKS.learnOnline },
   { label: "Become an Affiliate", href: "/affiliates/become-an-affiliate", wideOnly: true },
 ];
 
@@ -320,8 +320,8 @@ export const MOBILE_MENU_GROUPS: NavGroup[] = [
   {
     title: "Students",
     links: [
+      { label: "Sign in (applicants & students)", href: APP_LINKS.signIn },
       { label: "Pay tuition", href: APP_LINKS.payTuition },
-      { label: "Course registration", href: APP_LINKS.courseRegistration },
     ],
   },
   {
@@ -384,12 +384,10 @@ export const FOOTER_COLUMNS: NavGroup[] = [
   {
     title: "Students",
     links: [
-      { label: "Student Portal", href: APP_LINKS.studentPortal },
-      { label: "Staff Portal", href: APP_LINKS.staffPortal },
+      { label: "Sign in", href: APP_LINKS.signIn },
       { label: "Pay Tuition", href: APP_LINKS.payTuition },
-      { label: "LIU Learn", href: APP_LINKS.learn },
-      { label: "Course registration", href: APP_LINKS.courseRegistration },
       { label: "Verify a certificate", href: APP_LINKS.verifyCertificate },
+      { label: "Learn online", href: APP_LINKS.learnOnline },
     ],
   },
 ];
@@ -400,6 +398,6 @@ export const MOBILE_FOOTER_LINKS: NavLink[] = [
   { label: "University", href: "/about" },
   { label: "Admissions", href: "/admissions" },
   { label: "Academics", href: "/academics/academic-affairs" },
-  { label: "Students", href: APP_LINKS.studentPortal },
+  { label: "Students", href: APP_LINKS.signIn },
   { label: "Contact", href: "/contact" },
 ];

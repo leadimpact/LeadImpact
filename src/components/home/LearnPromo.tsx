@@ -4,7 +4,6 @@ import {
   BookOpenText,
   Headphones,
   Radio,
-  Smartphone,
   Timer,
   Video,
   WifiOff,
@@ -81,9 +80,8 @@ export function LearnPromo() {
               Discover LIU Learn
               <ArrowRight size={18} aria-hidden />
             </Link>
-            <Link href={APP_LINKS.learn} className="btn btn-outline hidden md:inline-flex">
-              <Smartphone size={18} aria-hidden />
-              Get the app
+            <Link href={APP_LINKS.apply} className="btn btn-outline hidden md:inline-flex">
+              Apply to study
             </Link>
           </div>
         </div>

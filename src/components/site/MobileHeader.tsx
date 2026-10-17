@@ -8,7 +8,7 @@ import { MobileUtilityBar } from "./UtilityBar";
 
 /**
  * Mobile header (SM1): the crest spans the top bar and the header row (overhanging upwards),
- * with Apply and Login always visible. Navigation is the section tabs underneath
+ * with Apply and Sign in (applicants and students) always visible. Navigation is the section tabs underneath
  * (MobileSectionTabs), so there is no menu button.
  */
 export function MobileHeader() {
@@ -31,11 +31,12 @@ export function MobileHeader() {
             Apply
           </Link>
           <Link
-            href={APP_LINKS.studentPortal}
+            href={APP_LINKS.signIn}
+            aria-label="Sign in — applicants and students"
             className="flex w-[72px] flex-col items-center justify-center gap-[3px] bg-charcoal max-[379px]:w-[60px] max-[339px]:w-[52px] font-display text-[10.5px] font-extrabold uppercase tracking-[0.08em] text-white"
           >
             <User size={22} aria-hidden />
-            Login
+            Sign in
           </Link>
         </div>
       </div>

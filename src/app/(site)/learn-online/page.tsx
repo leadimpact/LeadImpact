@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import clsx from "clsx";
 import { ArrowRight, ChevronRight, FileText, Globe, Headphones, Radio, Smartphone, Video, type LucideIcon } from "lucide-react";
-import { openLearn } from "@/config/domains";
+import { APP_LINKS } from "@/content/site";
 import { COUNTRY_COUNT } from "@/content/countries";
 import { LearnDevices } from "@/components/ui/LearnDevices";
 import { TitleBlock } from "@/components/ui/SectionHeader";
@@ -40,7 +40,7 @@ function AppComingSoon({ className }: { className?: string }) {
   );
 }
 
-/** S19 — marketing page. LIU Learn itself is on hold (addendum v5); buttons go through openLearn(). */
+/** S19 — marketing page only. Its buttons lead to Apply / Sign in; the LIU Learn address is shared with students after enrolment. */
 export default function LearnOnlinePage() {
   const stats = [
     ["48 MB", "A full week of lessons (low quality)"],
@@ -79,8 +79,8 @@ export default function LearnOnlinePage() {
               unavailable.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <a href={openLearn()} className="btn btn-orange">
-                Log in to LIU Learn
+              <a href={APP_LINKS.apply} className="btn btn-orange">
+                Apply to study
                 <ArrowRight size={18} aria-hidden />
               </a>
               <AppComingSoon className="btn-outline-light" />
@@ -159,11 +159,11 @@ export default function LearnOnlinePage() {
       <section className="flex flex-col gap-6 bg-orange px-page py-12 text-black md:flex-row md:items-center md:justify-between">
         <div>
           <h2 className="font-display text-[30px] font-extrabold tracking-[-0.02em] md:text-[36px]">Already a student?</h2>
-          <p className="mt-1">Log in with your registration number — the same account as the Student Portal.</p>
+          <p className="mt-1">Your LIU Learn link is in your welcome email and on your student dashboard.</p>
         </div>
         <div className="flex flex-wrap gap-3">
-          <a href={openLearn()} className="btn bg-black text-white hover:bg-charcoal">
-            Log in to LIU Learn
+          <a href={APP_LINKS.signIn} className="btn bg-black text-white hover:bg-charcoal">
+            Sign in to your dashboard
             <ArrowRight size={18} aria-hidden />
           </a>
           <AppComingSoon className="btn-white" />

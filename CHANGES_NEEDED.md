@@ -49,6 +49,13 @@ Add to this list whenever a new placeholder goes in.
 | Mobile menu adds Academics, Media & events and Get in touch groups beyond the four in SM2, so every section is reachable | `src/content/navigation.ts` → `MOBILE_MENU_GROUPS` | Client review |
 | Dropdown descriptions for Academics/Media ("Standards, credit hours and policies", "Updates from every campus", …) | `src/content/navigation.ts` | Confirm copy |
 
+## Portal links on the public site (client decision)
+
+| Item | Where | What's needed |
+|---|---|---|
+| The public site links only to Apply, one **Sign in** (applicants and students share an account; it routes by role) and Pay tuition. The staff portal, the LIU Learn platform and course registration are not linked anywhere public; staff and Learn hosts are marked noindex | `src/content/site.ts` → `APP_LINKS`, `src/config/routing.ts` | Back end: send staff their portal link at onboarding, and students the Learn and course-registration links on enrolment (welcome email + dashboard). Hiding links is not security — both still need sign-in, roles and ideally two-step verification |
+| Pay tuition stays public (parents, sponsors and churches pay for students) | header top bar, quick actions, footer | Confirm |
+
 ## Images
 
 Every photo is on **Cloudinary** (folder `CLOUDINARY_FOLDER`, default `website`) and listed in

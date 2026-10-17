@@ -101,7 +101,7 @@ test.describe("desktop header", () => {
     await page.goto("/");
     const banner = page.getByRole("banner").first();
     await expect(banner.getByRole("link", { name: "Apply now" })).toBeInViewport();
-    for (const name of ["Student Portal", "Pay Tuition", "LIU Learn", "Become an Affiliate", "WhatsApp"]) {
+    for (const name of ["Sign in", "Pay Tuition", "Learn online", "Become an Affiliate", "WhatsApp"]) {
       await expect(banner.getByRole("link", { name, exact: true })).toBeVisible();
     }
   });

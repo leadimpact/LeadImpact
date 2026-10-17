@@ -37,9 +37,11 @@ test.describe("affiliates (S17 / S18)", () => {
   });
 });
 
-test("LIU Learn page links through openLearn and never to an app that doesn't exist", async ({ page }) => {
+test("LIU Learn page advertises only: it leads to Apply and Sign in, never to the Learn platform", async ({ page }) => {
   await page.goto("/learn-online");
-  await expect(page.getByRole("link", { name: /Log in to LIU Learn/ }).first()).toHaveAttribute("href", "/learn");
+  await expect(page.getByRole("link", { name: /Apply to study/ }).first()).toHaveAttribute("href", "/portal/apply");
+  await expect(page.getByRole("link", { name: /Sign in to your dashboard/ })).toHaveAttribute("href", "/portal/sign-in");
+  await expect(page.locator('a[href^="/learn"]:not([href^="/learn-online"])')).toHaveCount(0);
   await expect(page.getByText("Android app · coming soon").first()).toHaveAttribute("aria-disabled", "true");
 });
 

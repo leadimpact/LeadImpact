@@ -36,7 +36,7 @@ Designs: `../design`, `../design 2`, `../design 3`, `../design 4`.
 
 | Change | Where | Status |
 |---|---|---|
-| "Student Login" → **Student Portal**; footer adds Staff Portal and Verify a certificate | header, footer, quick actions | ✅ Done in phase 3 |
+| Public portal links: one **Sign in** for applicants and students; Verify a certificate in the footer. **Client decision (Oct 2026), replacing addendum v5's footer Staff Portal link:** the staff portal, LIU Learn platform and course registration are never linked publicly — staff get their link by email, students get Learn and course registration after enrolment (welcome email, dashboard). Public "LIU Learn" buttons go to `/learn-online` or Apply; staff and Learn hosts send `X-Robots-Tag: noindex` | `src/content/site.ts` (`APP_LINKS`), `src/config/routing.ts` | ✅ Done |
 | Domain via environment variables; LIU Learn links via `openLearn()` | `src/config/domains.ts` | ✅ Done in phase 3 |
 | Kenya behind a feature flag | `src/content/countries.ts` | ✅ Done in phase 3 |
 | Home stats use the current site’s figures (459+ students, 35+ instructors, 60+ programs) until the back end supplies them | `src/content/home.ts` | ✅ Done |

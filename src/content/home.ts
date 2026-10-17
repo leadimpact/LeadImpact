@@ -37,8 +37,8 @@ export type QuickActionIcon = "apply" | "pay" | "login" | "learn";
 export const QUICK_ACTIONS: { label: string; mobileLabel: string; detail: string; mobileDetail: string; href: string; icon: QuickActionIcon }[] = [
   { label: "Apply now", mobileLabel: "Apply for admission", detail: "Online · about 15 minutes", mobileDetail: "About 15 minutes · no fee", href: APP_LINKS.apply, icon: "apply" },
   { label: "Pay tuition", mobileLabel: "Pay tuition", detail: "Card, bank, mobile money", mobileDetail: "Card, bank, mobile money", href: APP_LINKS.payTuition, icon: "pay" },
-  { label: "Student portal", mobileLabel: "Student portal", detail: "Registration, results, fees", mobileDetail: "Registration, results, fees", href: APP_LINKS.studentPortal, icon: "login" },
-  { label: "LIU Learn", mobileLabel: "LIU Learn", detail: "Study online — even offline", mobileDetail: "Study online — even offline", href: APP_LINKS.learn, icon: "learn" },
+  { label: "Sign in", mobileLabel: "Sign in", detail: "Applicants & students", mobileDetail: "Applicants & students · one account", href: APP_LINKS.signIn, icon: "login" },
+  { label: "Learn online", mobileLabel: "Learn online", detail: "Study online — even offline", mobileDetail: "Study online — even offline", href: APP_LINKS.learnOnline, icon: "learn" },
 ];
 
 export const PILLARS = [

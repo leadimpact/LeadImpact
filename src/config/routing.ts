@@ -1,13 +1,18 @@
 import { APPS, appForHost, type AppName } from "./domains";
 
 export type RouteDecision =
-  | { type: "next" }
+  /** noindex: a private app (see PRIVATE_APPS) — the proxy sends X-Robots-Tag so search engines skip it. */
+  | { type: "next"; noindex?: true }
   /** Serve a subdomain request from its internal path, e.g. staff.…/sign-in → /staff/sign-in. */
-  | { type: "rewrite"; pathname: string }
+  | { type: "rewrite"; pathname: string; noindex?: true }
   /** Send main-domain requests for an app path to its configured URL (canonical). */
   | { type: "redirect"; url: string };
 
 const hasPrefix = (pathname: string, prefix: string) => pathname === prefix || pathname.startsWith(`${prefix}/`);
+
+/** Shared with staff and enrolled students by email, never linked from the public site, and kept out of search. */
+const PRIVATE_APPS: AppName[] = ["staff", "learn"];
+const privacy = (app: AppName | null) => (app && PRIVATE_APPS.includes(app) ? { noindex: true as const } : {});
 
 /** Applicant paths live in the portal app but are canonical on the admissions subdomain. */
 const ADMISSIONS_PATHS = ["/portal/apply", "/portal/applicant"];
@@ -33,10 +38,10 @@ export function routeRequest(
 
   if (app !== "site") {
     const { basePath } = APPS[app];
-    if (hasPrefix(pathname, basePath)) return { type: "next" };
+    if (hasPrefix(pathname, basePath)) return { type: "next", ...privacy(app) };
     // admissions.… opens straight onto the application.
     if (app === "admissions" && pathname === "/") return { type: "rewrite", pathname: "/portal/apply" };
-    return { type: "rewrite", pathname: pathname === "/" ? basePath : `${basePath}${pathname}` };
+    return { type: "rewrite", pathname: pathname === "/" ? basePath : `${basePath}${pathname}`, ...privacy(app) };
   }
 
   const owner = ownerOf(pathname);
@@ -45,5 +50,5 @@ export function routeRequest(
     const rest = pathname.slice(APPS[owner].basePath.length) || "/";
     return { type: "redirect", url: `${target.replace(/\/+$/, "")}${rest}${search}` };
   }
-  return { type: "next" };
+  return { type: "next", ...privacy(owner) };
 }
