@@ -30,7 +30,7 @@ export default function PresidentPage() {
       <section className="px-page py-14 md:py-[100px]">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-[72px]">
           <aside className="lg:w-[440px] lg:flex-none">
-            <Photo asset={PRESIDENT.photo} sizes="(min-width: 768px) 40vw, 100vw" position="top" icon={User} className="h-[420px] rounded-[10px] md:h-[540px]" />
+            <Photo asset={PRESIDENT.photo} sizes="(min-width: 768px) 40vw, 100vw" position="top" icon={User} priority className="h-[420px] rounded-[10px] md:h-[540px]" />
             <div className="mt-5 rounded-[8px] border-[1.5px] border-line p-6">
               <p className="font-display text-[28px] font-extrabold tracking-[-0.02em] text-black">{PRESIDENT.name}</p>
               <p className="mt-1 text-muted">President · Chairman, Board of Regents</p>

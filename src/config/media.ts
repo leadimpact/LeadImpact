@@ -18,11 +18,14 @@ interface DeliveryOptions {
   folder?: string;
 }
 
-/** Resized delivery URL: never upscaled (c_limit), best format and quality for each browser. */
+/**
+ * Resized delivery URL: never upscaled (c_limit), auto quality, WebP. Not f_auto: that serves JPEG XL
+ * to Safari, which rendered slowly or not at all on iPhones; WebP works in every current browser.
+ */
 export function cloudinaryUrl(
   id: string,
   { width, quality, cloudName = CLOUDINARY.cloudName, folder = CLOUDINARY.folder }: DeliveryOptions,
 ) {
-  const transform = ["c_limit", `w_${width}`, quality ? `q_${quality}` : "q_auto", "f_auto"].join(",");
+  const transform = ["c_limit", `w_${width}`, quality ? `q_${quality}` : "q_auto", "f_webp"].join(",");
   return `https://res.cloudinary.com/${cloudName}/image/upload/${transform}/${folder}/${id}`;
 }

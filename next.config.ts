@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   env: { CLOUDINARY_FOLDER: process.env.CLOUDINARY_FOLDER || "website" },
   partialPrefetching: true,
   images: {
-    // Photos come from Cloudinary (f_auto picks AVIF/WebP per browser); see src/content/media.ts.
+    // Photos come from Cloudinary as WebP (src/config/media.ts); see src/content/media.ts.
     loader: "custom",
     loaderFile: "./src/lib/cloudinary-loader.ts",
     qualities: [60, 75],
