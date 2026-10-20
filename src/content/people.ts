@@ -13,7 +13,7 @@ export const PRESIDENT = {
   role: "President & Chairman, Board of Regents",
   shortRole: "President",
   photoLabel: "Prof. Cletus Bassey — official portrait",
-  photo: MEDIA.cletusBassey,
+  photo: MEDIA.cletusBasseyPortrait,
   quote: {
     before: "We are shaping leaders who will make an ",
     highlight: "everlasting impact",

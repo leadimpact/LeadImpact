@@ -32,7 +32,7 @@ export function Campuses() {
         tabIndex={0}
         className="-mx-5 snap-x snap-mandatory overflow-x-auto px-5 pb-2 md:mx-0 md:overflow-visible md:px-0 md:pb-0"
       >
-        <ul className="flex gap-3 md:grid md:grid-cols-3 md:gap-0 md:border md:border-line md:bg-white lg:grid-cols-5">
+        <ul className="flex gap-3 md:grid md:grid-cols-3 md:gap-0 md:border md:border-line md:bg-white xl:grid-cols-6">
           {COUNTRY_LIST.map((c) => (
             <li
               key={c.code}

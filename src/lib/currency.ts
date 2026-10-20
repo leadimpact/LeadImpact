@@ -12,9 +12,10 @@ export const SAMPLE_RATES: Record<CountryCode, number> = {
   UG: 3700,
   GH: 15,
   KE: 130,
+  TZ: 2600,
 };
 
-const SYMBOLS: Record<CountryCode, string> = { US: "$", NG: "₦", UG: "USh ", GH: "GH₵ ", KE: "KSh " };
+const SYMBOLS: Record<CountryCode, string> = { US: "$", NG: "₦", UG: "USh ", GH: "GH₵ ", KE: "KSh ", TZ: "TSh " };
 
 export function toLocal(usd: number, country: CountryCode): number {
   return usd * SAMPLE_RATES[country];

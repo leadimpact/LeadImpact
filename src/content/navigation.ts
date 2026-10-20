@@ -82,6 +82,7 @@ export const COUNTRY_SLUGS: Record<CountryCode, string> = {
   UG: "uganda",
   GH: "ghana",
   KE: "kenya",
+  TZ: "tanzania",
 };
 
 export const affiliateHref = (code: CountryCode) => `/affiliates/${COUNTRY_SLUGS[code]}`;

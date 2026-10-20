@@ -1,14 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import clsx from "clsx";
 import { Image as ImageIcon } from "lucide-react";
-import { ALBUMS, ALBUM_FILTERS, type AlbumTag } from "@/content/gallery";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { ALBUMS, ALBUM_FILTERS, albumHref, type AlbumTag } from "@/content/gallery";
 import { Photo } from "@/components/ui/Photo";
-import { Tbc } from "@/components/ui/Tbc";
 
-/** S22 album chips and grid. Album pages (every photo in an album) are still to build. */
+/** S22 album chips and grid; each album opens its own page (every photo, full screen). */
 export function Albums() {
   const [tag, setTag] = useState<AlbumTag | undefined>();
   const albums = ALBUMS.filter((a) => !tag || a.tag === tag);
@@ -36,23 +35,22 @@ export function Albums() {
       </ul>
       <ul className="mt-6 grid gap-x-6 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
         {albums.map((a) => (
-          <li key={a.title}>
-            <div className="relative">
-              {a.photos ? (
+          <li key={a.slug}>
+            <Link href={albumHref(a)} className="group block">
+              <div className="relative">
                 <Photo asset={a.photos[0]} alt="" sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw" className="h-[220px] rounded-[6px]" />
-              ) : (
-                <ImagePlaceholder label={a.title} className="h-[220px] rounded-[6px]" />
-              )}
-              <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-[4px] bg-black/80 px-2 py-1 font-display text-[11px] font-extrabold uppercase text-white">
-                <ImageIcon size={12} aria-hidden />
-                {a.photos ? `${a.photos.length} photos` : <Tbc>{a.sampleCount} photos</Tbc>}
-              </span>
-            </div>
-            <h2 className="mt-3 font-display text-[20px] font-extrabold tracking-[-0.02em]">{a.title}</h2>
-            <p className="text-[14.5px] text-muted">{a.meta}</p>
+                <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-[4px] bg-black/80 px-2 py-1 font-display text-[11px] font-extrabold uppercase text-white">
+                  <ImageIcon size={12} aria-hidden />
+                  {a.photos.length} photos
+                </span>
+              </div>
+              <h2 className="mt-3 font-display text-[20px] font-extrabold tracking-[-0.02em] group-hover:text-orange-text">{a.title}</h2>
+              <p className="text-[14.5px] text-muted">{a.meta}</p>
+            </Link>
           </li>
         ))}
       </ul>
     </>
   );
 }
+

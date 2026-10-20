@@ -1,4 +1,5 @@
 import type { CollegeSlug } from "./colleges";
+import { oldPhoto, photo, type MediaAsset } from "./media";
 
 export type LevelId = "certificate" | "diploma" | "associate" | "bachelor" | "master" | "doctorate";
 
@@ -58,7 +59,8 @@ export interface Program {
   faculty: string[];
   /** Sample career paths — to be confirmed by LIU. */
   careers: string[];
-  imageLabel: string;
+  /** Event photo standing in until LIU supplies one per program; decorative, so no caption. */
+  photo: MediaAsset;
   /** True where the description is a placeholder rather than LIU's own copy. */
   aboutIsPlaceholder?: boolean;
 }
@@ -93,7 +95,7 @@ export const PROGRAMS: Program[] = [
     ],
     faculty: ["edem-ndem", "adejumoke-elisha"],
     careers: ["Pastor or associate pastor", "Bible teacher or lecturer", "Church planter", "Christian writer"],
-    imageLabel: "Theology class",
+    photo: photo("masterclass", 19),
   },
   {
     slug: "biblical-studies",
@@ -110,7 +112,7 @@ export const PROGRAMS: Program[] = [
     levels: STANDARD_LEVELS,
     faculty: ["edem-ndem", "adejumoke-elisha"],
     careers: ["Bible teacher", "Sunday school coordinator", "Christian education leader", "Further study in theology"],
-    imageLabel: "Biblical Studies",
+    photo: photo("masterclass", 9),
   },
   {
     slug: "prophetic-ministry",
@@ -127,7 +129,7 @@ export const PROGRAMS: Program[] = [
     levels: STANDARD_LEVELS,
     faculty: ["edem-ndem", "adejumoke-elisha"],
     careers: ["Prophetic ministry within a local church", "Prayer and intercession leader", "Pastoral team member"],
-    imageLabel: "Prophetic Ministry",
+    photo: oldPhoto("masterclass", "img-3346"),
   },
   {
     slug: "christian-counseling",
@@ -145,7 +147,7 @@ export const PROGRAMS: Program[] = [
     levels: STANDARD_LEVELS,
     faculty: ["paul-manner", "sylvanus-jackson"],
     careers: ["Pastoral counselor", "Marriage and family counselor", "Church care-team leader", "Crisis support volunteer"],
-    imageLabel: "Christian Counseling",
+    photo: oldPhoto("masterclass", "img-3173"),
   },
   {
     slug: "chaplaincy",
@@ -163,7 +165,7 @@ export const PROGRAMS: Program[] = [
     levels: STANDARD_LEVELS,
     faculty: ["paul-manner", "sylvanus-jackson"],
     careers: ["Hospital chaplain", "Prison chaplain", "School or campus chaplain", "Military or police chaplain"],
-    imageLabel: "Chaplaincy",
+    photo: photo("tanzania", 6),
   },
   {
     slug: "christian-education",
@@ -178,7 +180,7 @@ export const PROGRAMS: Program[] = [
     levels: STANDARD_LEVELS,
     faculty: ["blessing-bassey", "kathy-archibong"],
     careers: ["Christian education director", "Sunday school superintendent", "Christian school teacher"],
-    imageLabel: "Christian Education",
+    photo: photo("executiveMasterclass", 1),
   },
   {
     slug: "youth-ministry",
@@ -195,7 +197,7 @@ export const PROGRAMS: Program[] = [
     levels: STANDARD_LEVELS,
     faculty: ["blessing-bassey", "kathy-archibong"],
     careers: ["Youth pastor", "Youth and campus ministry leader", "Children’s ministry coordinator"],
-    imageLabel: "Youth Ministry",
+    photo: photo("masterclass", 7),
   },
   {
     slug: "christian-leadership",
@@ -212,7 +214,7 @@ export const PROGRAMS: Program[] = [
     levels: STANDARD_LEVELS,
     faculty: ["cletus-bassey", "kathy-archibong"],
     careers: ["Church administrator", "Ministry or NGO leader", "Team leader in the workplace", "Community leader"],
-    imageLabel: "Christian Leadership",
+    photo: photo("wobicon", 9),
   },
   {
     slug: "christian-entrepreneurship",
@@ -229,7 +231,7 @@ export const PROGRAMS: Program[] = [
     levels: STANDARD_LEVELS,
     faculty: ["cletus-bassey", "kathy-archibong"],
     careers: ["Business owner", "Social entrepreneur", "Church business and finance lead", "Marketplace minister"],
-    imageLabel: "Christian Entrepreneurship",
+    photo: photo("masterclass", 15),
   },
   {
     slug: "ministry",
@@ -246,7 +248,7 @@ export const PROGRAMS: Program[] = [
     levels: STANDARD_LEVELS,
     faculty: ["paul-ojo", "xavier-john"],
     careers: ["Pastor", "Evangelist", "Associate minister", "Ministry founder"],
-    imageLabel: "Ministry",
+    photo: photo("tanzania", 9),
   },
   {
     slug: "missions-evangelism",
@@ -263,7 +265,7 @@ export const PROGRAMS: Program[] = [
     levels: STANDARD_LEVELS,
     faculty: ["paul-ojo", "xavier-john"],
     careers: ["Missionary", "Evangelist", "Church planter", "Missions coordinator"],
-    imageLabel: "Missions & Evangelism",
+    photo: photo("tanzania", 8),
   },
   {
     slug: "worship-ministry",
@@ -280,7 +282,7 @@ export const PROGRAMS: Program[] = [
     levels: STANDARD_LEVELS,
     faculty: ["paul-ojo", "xavier-john"],
     careers: ["Worship leader", "Music director", "Choir director", "Sound and media team lead"],
-    imageLabel: "Worship Ministry",
+    photo: photo("wobicon", 11),
   },
 ];
 

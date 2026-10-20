@@ -26,8 +26,9 @@ Add to this list whenever a new placeholder goes in.
 
 | Item | Where | What's needed |
 |---|---|---|
-| Campus phone numbers for Nigeria, Uganda, Ghana and Kenya — all fall back to the Denver HQ number | `src/content/countries.ts` (`phoneIsPlaceholder: true`) | Real local numbers (and WhatsApp numbers if different) per country |
-| Kenya is hidden behind `NEXT_PUBLIC_FEATURE_KENYA` (old site lists only Uganda, Nigeria and Ghana) | `src/config/domains.ts` → `FEATURES.kenya` | Confirm the Kenya campus before switching it on |
+| Campus phone numbers for Kenya and Tanzania fall back to the Denver HQ number | `src/content/countries.ts` (`phoneIsPlaceholder: true`) | Real local numbers (and WhatsApp numbers if different) per country |
+| Kenya (Nairobi) and Tanzania (Dodoma) list only the capital: one campus card each, “LeadImpact University — Kenya/Tanzania”, with the HQ phone and stand-in photos (Kenya’s is a Nigeria masterclass photo) | `src/content/affiliates.ts` → `CAMPUSES.KE` / `CAMPUSES.TZ`, `COUNTRY_PHOTOS`; `src/content/countries.ts` | Campus name, address, phone/WhatsApp and a photo for each |
+| Tanzanian shilling estimate uses a sample rate (TSh 2,600 per US$1) | `src/lib/currency.ts` → `SAMPLE_RATES` | Live rates feed (as for the other currencies) |
 | Phone numbers: +1 720-598-9177 (used), 720-588-9896 and 281-202-4565 also appear on old systems | `src/content/site.ts` | Confirm which numbers to publish |
 | Social media URLs (Facebook, YouTube, LinkedIn) are guesses | `src/content/site.ts` → `SITE.social` | Real profile URLs |
 | WhatsApp number assumed to be the HQ phone `+1 720 598 9177` | `src/content/site.ts` → `SITE.whatsapp` | Confirm the WhatsApp Business number |
@@ -94,7 +95,6 @@ the live site’s Board of Regents page.
 | Board member biographies (profile pages, no design — built from S07/S08 patterns) | `src/app/(site)/about/board-of-regents/[slug]/page.tsx` | One biography per member |
 | “Write to the Secretary” opens an email to info@ | `src/app/(site)/about/board-of-regents/page.tsx` | Confirm the Secretary’s address |
 | “See accreditation” links to `/academics/academic-affairs#accreditation` | `src/components/home/WhyChoose.tsx` | Accreditation details for that section (phase 3) |
-| Kenya: “Nairobi · details to confirm” on campus cards | `src/content/countries.ts` → `campusDetail` | Kenya campus details |
 
 ## Mobile home (SM1)
 

@@ -3,7 +3,7 @@ import { ArrowRight, Globe, WifiOff } from "lucide-react";
 import { findCollege } from "@/content/colleges";
 import { LEVELS, programHref, type Program } from "@/content/programs";
 import { TUITION } from "@/content/colleges";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { Photo } from "@/components/ui/Photo";
 import { ProgramIcon } from "./ProgramIcon";
 
 /** Program card (S12). */
@@ -14,7 +14,7 @@ export function ProgramCard({ program }: { program: Program }) {
       href={programHref(program)}
       className="group flex h-full flex-col overflow-hidden rounded-[8px] border-[1.5px] border-line bg-white hover:border-charcoal"
     >
-      <ImagePlaceholder label={program.imageLabel} iconSize={26} className="h-[150px] flex-none" />
+      <Photo asset={program.photo} alt="" sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw" className="h-[150px] flex-none" />
       <div className="flex flex-1 flex-col p-5">
         <p className="font-display text-[11.5px] font-extrabold uppercase tracking-[0.1em] text-orange-text">{college?.name}</p>
         <h2 className="mt-2.5 flex items-center gap-3 font-display text-[22px] font-extrabold leading-tight tracking-[-0.02em]">

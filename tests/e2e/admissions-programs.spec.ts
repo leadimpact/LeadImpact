@@ -38,7 +38,7 @@ test("tuition shows the bundle saving and the selected country's estimate", asyn
   const nigeria = page.getByRole("row", { name: /Nigeria/ });
   await expect(nigeria).toContainText("₦750,000");
   await expect(nigeria).toHaveAttribute("aria-current", "true");
-  await expect(page.getByRole("row", { name: /Kenya/ })).toHaveCount(0);
+  await expect(page.getByRole("row", { name: /Tanzania/ })).toContainText("TSh");
 });
 
 test.describe("programs (S12)", () => {
@@ -46,6 +46,7 @@ test.describe("programs (S12)", () => {
     await page.goto("/programs");
     await expect(page.getByRole("status").filter({ hasText: "programs" })).toHaveText("12 programs");
     await expect(page.getByRole("link", { name: /View program/ })).toHaveCount(9);
+    await expect(page.getByRole("link", { name: /View program/ }).locator("img")).toHaveCount(9);
     await page.getByRole("link", { name: "Page 2" }).click();
     await expect(page).toHaveURL(/page=2/);
     await expect(page.getByRole("link", { name: /View program/ })).toHaveCount(3);
@@ -122,5 +123,7 @@ test.describe("academics (S14–S16)", () => {
   test("honorary doctorate lists the seven degrees", async ({ page }) => {
     await page.goto("/academics/honorary-doctorate");
     await expect(page.getByText(/^Doctor of /)).toHaveCount(7);
+    const recent = page.getByRole("region", { name: "Angela Ashong Ashong" });
+    await expect(recent.getByRole("link", { name: "View the album" })).toHaveAttribute("href", "/media/gallery/honorary-doctorate-2026");
   });
 });

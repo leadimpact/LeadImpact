@@ -74,7 +74,7 @@ export const ADMISSIONS_FAQS: { q: string; a: string; tbc?: boolean }[] = [
   },
   {
     q: "Can I study fully online?",
-    a: "Yes. Every program can be studied online through LIU Learn — video, audio, reading notes and live classes, with lessons you can download and study offline. You can also study at an affiliate campus in the US, Nigeria, Uganda or Ghana.",
+    a: "Yes. Every program can be studied online through LIU Learn — video, audio, reading notes and live classes, with lessons you can download and study offline. You can also study at an affiliate campus in the US, Nigeria, Uganda, Ghana, Kenya or Tanzania.",
   },
   {
     q: "How long does a decision take?",

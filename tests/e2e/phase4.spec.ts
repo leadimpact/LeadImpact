@@ -7,19 +7,23 @@ test.describe("affiliates (S17 / S18)", () => {
     const campuses = page.getByRole("list", { name: "Campuses in Nigeria" }).getByRole("listitem");
     await expect(campuses).toHaveCount(4);
     const vision = campuses.filter({ hasText: "Vision Christian College" });
+    await expect(campuses.locator("img")).toHaveCount(4);
     await expect(vision.getByRole("link", { name: "+234 803 250 7326" })).toHaveAttribute("href", "tel:+2348032507326");
     await expect(vision.getByRole("link", { name: /WhatsApp/ })).toHaveAttribute("href", /wa\.me\/2348032507326/);
     await expect(vision.getByRole("link", { name: /Directions/ })).toHaveAttribute("href", /google\.com\/maps/);
   });
 
-  test("country tabs switch countries; Kenya stays hidden behind its flag", async ({ page }) => {
+  test("country tabs switch countries, including Kenya and Tanzania", async ({ page }) => {
     await page.goto("/affiliates/uganda");
     const tabs = page.getByRole("navigation", { name: "Countries" });
     await expect(tabs.getByRole("link", { name: /Uganda/ })).toHaveAttribute("aria-current", "page");
-    await expect(tabs.getByRole("link", { name: /Kenya/ })).toHaveCount(0);
     await tabs.getByRole("link", { name: /Ghana/ }).click();
     await expect(page).toHaveURL(/\/affiliates\/ghana$/);
     await expect(page.getByText("LeadImpact Christian Leadership Fellowship")).toBeVisible();
+    await tabs.getByRole("link", { name: /Tanzania/ }).click();
+    await expect(page).toHaveURL(/\/affiliates\/tanzania$/);
+    await expect(page.getByText("Dodoma, Tanzania")).toBeVisible();
+    await expect(tabs.getByRole("link", { name: /Kenya/ })).toHaveAttribute("href", "/affiliates/kenya");
   });
 
   test("become-an-affiliate form validates, then confirms", async ({ page }) => {
@@ -59,6 +63,21 @@ test("blog filters by category and opens an article", async ({ page }) => {
   await expect(page.getByRole("link", { name: /Read more/ })).toHaveCount(2);
   await page.getByRole("link", { name: /Power Bible College hosts/ }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(/Power Bible College hosts leadership week/);
+});
+
+test("a gallery album opens every photo, full screen", async ({ page }) => {
+  await page.goto("/media/gallery");
+  await page.getByRole("link", { name: /WOBICON 2023/ }).click();
+  await expect(page).toHaveURL(/\/media\/gallery\/wobicon-2023$/);
+  const photos = page.getByRole("button", { name: /^Open photo/ });
+  await expect(photos).toHaveCount(21);
+  await photos.first().click();
+  const viewer = page.getByRole("dialog");
+  await expect(viewer.getByText("1 / 21")).toBeVisible();
+  await page.keyboard.press("ArrowRight");
+  await expect(viewer.getByText("2 / 21")).toBeVisible();
+  await viewer.getByRole("button", { name: "Close" }).click();
+  await expect(viewer).toBeHidden();
 });
 
 test("gallery videos open LIU's YouTube channel", async ({ page }) => {

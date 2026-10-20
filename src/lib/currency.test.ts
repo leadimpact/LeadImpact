@@ -9,6 +9,7 @@ describe("local currency estimates (S11 sample rates)", () => {
     expect(formatLocal(500, "UG")).toBe("USh 1.85M");
     expect(formatLocal(200, "GH")).toBe("GH₵ 3,000");
     expect(formatLocal(500, "KE")).toBe("KSh 65,000");
+    expect(formatLocal(500, "TZ")).toBe("TSh 1,300,000");
     expect(formatLocal(200, "US")).toBe("$200");
   });
 

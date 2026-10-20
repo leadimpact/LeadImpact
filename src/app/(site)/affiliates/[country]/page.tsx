@@ -10,6 +10,7 @@ import { TUITION } from "@/content/colleges";
 import { APP_LINKS } from "@/content/site";
 import { whatsappHref } from "@/lib/whatsapp";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { Photo } from "@/components/ui/Photo";
 import { Tbc } from "@/components/ui/Tbc";
 
 const codeForSlug = (slug: string): CountryCode | undefined =>
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: PageProps<"/affiliates/[count
 
 const WORDS = ["No", "One", "Two", "Three", "Four", "Five"];
 
-/** S17 — one page per country; Kenya only when FEATURE_KENYA is on. */
+/** S17 — one page per country. */
 export default async function AffiliateCountryPage({ params }: PageProps<"/affiliates/[country]">) {
   const code = codeForSlug((await params).country);
   if (!code) notFound();
@@ -98,7 +99,7 @@ export default async function AffiliateCountryPage({ params }: PageProps<"/affil
             const tel = phoneDigits(c.phones[0], code);
             return (
               <li key={c.name} className="flex flex-col gap-5 rounded-[8px] border-[1.5px] border-line p-5 sm:flex-row">
-                <ImagePlaceholder label="Campus photo" iconSize={26} className="h-[160px] flex-none rounded-[6px] sm:w-[210px]" />
+                <Photo asset={c.photo} alt="" sizes="(min-width: 640px) 210px, 100vw" className="h-[160px] flex-none rounded-[6px] sm:w-[210px]" />
                 <div className="flex-1">
                   <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-[-0.02em]">{c.name}</h2>
                   {c.note && <p className="mt-1 text-[15px] text-muted">{c.note.startsWith("[") ? <Tbc>{c.note}</Tbc> : c.note}</p>}

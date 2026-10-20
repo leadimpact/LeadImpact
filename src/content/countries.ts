@@ -1,6 +1,4 @@
-import { FEATURES } from "@/config/domains";
-
-export type CountryCode = "US" | "NG" | "UG" | "GH" | "KE";
+export type CountryCode = "US" | "NG" | "UG" | "GH" | "KE" | "TZ";
 
 export type PaymentMethod =
   | "card"
@@ -44,7 +42,6 @@ export interface Country {
   phoneIsPlaceholder: boolean;
   /** Tailwind classes for the round country badge. */
   badge: string;
-  comingSoon?: boolean;
 }
 
 const HQ_PHONE = "17205989177";
@@ -118,25 +115,33 @@ export const COUNTRIES: Record<CountryCode, Country> = {
     currency: { code: "KES", symbol: "KSh" },
     timeZone: "Africa/Nairobi",
     campuses: ["Nairobi"],
-    campusSummary: "Nairobi · coming soon",
-    campusDetail: "Nairobi · details to confirm",
+    campusSummary: "Nairobi",
+    campusDetail: "Nairobi",
     paymentMethods: ["mpesa", "card"],
     phone: HQ_PHONE,
     phoneDisplay: HQ_PHONE_DISPLAY,
     phoneIsPlaceholder: true,
     badge: "bg-[#E9E6E2] text-charcoal",
-    comingSoon: true,
+  },
+  TZ: {
+    code: "TZ",
+    code3: "TZA",
+    name: "Tanzania",
+    currency: { code: "TZS", symbol: "TSh" },
+    timeZone: "Africa/Dar_es_Salaam",
+    campuses: ["Dodoma"],
+    campusSummary: "Dodoma",
+    campusDetail: "Dodoma",
+    paymentMethods: ["mpesa", "airtel-money", "card"],
+    phone: HQ_PHONE,
+    phoneDisplay: HQ_PHONE_DISPLAY,
+    phoneIsPlaceholder: true,
+    badge: "bg-[#E3EDF7] text-[#1D4F86]",
   },
 };
 
-/** Countries shown on the site. Kenya stays hidden until LIU confirms it (FEATURE_KENYA). */
-export const COUNTRY_LIST: Country[] = [
-  COUNTRIES.US,
-  COUNTRIES.NG,
-  COUNTRIES.UG,
-  COUNTRIES.GH,
-  ...(FEATURES.kenya ? [COUNTRIES.KE] : []),
-];
+/** Countries shown on the site. Kenya and Tanzania list their capital until LIU supplies campus details. */
+export const COUNTRY_LIST: Country[] = [COUNTRIES.US, COUNTRIES.NG, COUNTRIES.UG, COUNTRIES.GH, COUNTRIES.KE, COUNTRIES.TZ];
 
 export const DEFAULT_COUNTRY: CountryCode = "NG";
 
@@ -150,7 +155,7 @@ const WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven"];
 export const COUNTRY_COUNT = COUNTRY_LIST.length;
 export const COUNTRY_COUNT_WORD = WORDS[COUNTRY_COUNT] ?? String(COUNTRY_COUNT);
 
-/** "the United States, Nigeria, Uganda and Ghana" */
+/** "the United States, Nigeria, Uganda, Ghana, Kenya and Tanzania" */
 export function countryNames(list: Country[] = COUNTRY_LIST): string {
   const names = list.map((c) => (c.code === "US" ? "the United States" : c.name));
   return names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : names.join("");

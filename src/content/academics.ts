@@ -1,5 +1,5 @@
 import { EMAILS } from "@/config/domains";
-import { photo } from "./media";
+import { COLLECTIONS, photo } from "./media";
 
 export const ACADEMIC_AFFAIRS = {
   hero: {
@@ -130,6 +130,15 @@ export const HONORARY_DOCTORATE = {
   ],
   integrity:
     "Honorary degrees are never awarded in exchange for payment or property, and recipients receive no honorarium.",
+  /** Latest conferral; its photos are also a gallery album. */
+  recent: {
+    recipient: "Angela Ashong Ashong",
+    degree: "Doctor in Ministry (Honoris Causa)",
+    date: "16 October 2026",
+    text: "Prof. Cletus Bassey, President of LeadImpact University, conferred the degree on behalf of the Board of Regents.",
+    photos: COLLECTIONS.honoraryDoctorate2026,
+    album: "/media/gallery/honorary-doctorate-2026",
+  },
 };
 
 export const FACULTY_PAGE = {

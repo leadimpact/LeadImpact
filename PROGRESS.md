@@ -26,8 +26,9 @@ Designs: `../design`, `../design 2`, `../design 3`, `../design 4`.
   students); `staff.` → `/staff`; `learn.` → `/learn`. `src/proxy.ts` rewrites by host and
   redirects main-domain app URLs to the configured app URL.
 - **Emails:** `info@`, `support@`, `admissions@`, `bursary@`, `registrar@` on the new domain.
-- **Kenya:** hidden behind `NEXT_PUBLIC_FEATURE_KENYA` (addendum v5 §6). Country counts and lists
-  are derived from the data, so turning the flag on updates every page.
+- **Countries:** US, Nigeria, Uganda, Ghana, Kenya and Tanzania (`src/content/countries.ts`). Kenya
+  and Tanzania show their capital only until LIU supplies campus details. Country counts and lists
+  are derived from the data, so adding a country updates every page.
 - **Images:** all on Cloudinary (`src/content/media.ts`, `pnpm images:upload`); none in `public/`. The
   next/image loader is `src/lib/cloudinary-loader.ts`; without a cloud name photos show as placeholders.
 - **Programs:** the 12 on the current site (11 application-form majors + Chaplaincy).

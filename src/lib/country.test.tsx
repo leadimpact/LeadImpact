@@ -31,9 +31,10 @@ describe("countryFromTimeZone", () => {
     expect(countryFromTimeZone("America/New_York")).toBe("US");
   });
 
-  it("gives no guess for other zones, or for Kenya while it is hidden", () => {
+  it("guesses Kenya and Tanzania from their zones, and nothing for other zones", () => {
+    expect(countryFromTimeZone("Africa/Nairobi")).toBe("KE");
+    expect(countryFromTimeZone("Africa/Dar_es_Salaam")).toBe("TZ");
     expect(countryFromTimeZone("Europe/London")).toBeUndefined();
-    expect(countryFromTimeZone("Africa/Nairobi")).toBeUndefined();
     expect(countryFromTimeZone(undefined)).toBeUndefined();
   });
 });
@@ -50,10 +51,10 @@ describe("CountryProvider", () => {
     expect(window.localStorage.getItem(COUNTRY_STORAGE_KEY)).toBe("GH");
   });
 
-  it("ignores Kenya while FEATURE_KENYA is off", () => {
-    window.localStorage.setItem(COUNTRY_STORAGE_KEY, "KE");
+  it("restores Tanzania from storage", () => {
+    window.localStorage.setItem(COUNTRY_STORAGE_KEY, "TZ");
     renderProbe();
-    expect(screen.getByRole("button").textContent).toBe("NG");
+    expect(screen.getByRole("button").textContent).toBe("TZ");
   });
 
   it("ignores an invalid stored value", () => {

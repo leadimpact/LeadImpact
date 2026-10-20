@@ -18,7 +18,7 @@ import {
 import { findCollege, TUITION } from "@/content/colleges";
 import { INTAKES, LEVELS, PROGRAMS, findProgram } from "@/content/programs";
 import { facultyHref, findFaculty } from "@/content/faculty";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { Photo } from "@/components/ui/Photo";
 import { AnchorTabs } from "@/components/ui/AnchorTabs";
 import { CheckList } from "@/components/ui/CheckList";
 import { Tbc } from "@/components/ui/Tbc";
@@ -124,7 +124,7 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
 
       {/* Phones and tablets (SM3): photo, then the level picker */}
       <div className="lg:hidden">
-        <ImagePlaceholder label={program.imageLabel} className="h-[200px]" />
+        <Photo asset={program.photo} alt="" sizes="100vw" className="h-[200px]" />
         <div className="px-page py-6">
           <LevelPicker programSlug={program.slug} programName={program.name} levels={program.levels} variant="plain" />
         </div>
@@ -214,7 +214,7 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
         </div>
 
         <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:w-[400px] lg:flex-none">
-          <ImagePlaceholder label={program.imageLabel} className="hidden h-[240px] rounded-[8px] lg:flex" />
+          <Photo asset={program.photo} alt="" sizes="400px" className="hidden h-[240px] rounded-[8px] lg:block" />
           <div id="faculty" className="scroll-mt-36 rounded-[8px] border-[1.5px] border-line p-5">
             <h2 className="font-display text-[19px] font-extrabold">Program faculty</h2>
             <ul className="mt-2">

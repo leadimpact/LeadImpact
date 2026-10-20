@@ -39,7 +39,6 @@ export function CountryPicker({ className, compact }: CountryPickerProps) {
         {COUNTRY_LIST.map((c) => (
           <option key={c.code} value={c.code}>
             {c.name}
-            {c.comingSoon ? " (coming soon)" : ""}
           </option>
         ))}
       </select>

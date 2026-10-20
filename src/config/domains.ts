@@ -105,9 +105,3 @@ export const EMAILS = {
 
 export const mailto = (address: string, subject?: string) =>
   `mailto:${address}${subject ? `?subject=${encodeURIComponent(subject)}` : ""}`;
-
-/** Feature flags (addendum v5 §6). */
-export const FEATURES = {
-  /** Kenya is shown only once LIU confirms the campus. */
-  kenya: process.env.NEXT_PUBLIC_FEATURE_KENYA === "true",
-};

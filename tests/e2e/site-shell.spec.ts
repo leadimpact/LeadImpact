@@ -86,11 +86,10 @@ test.describe("desktop header", () => {
     await expect(page.getByRole("button", { name: "Admissions" })).toBeFocused();
   });
 
-  test("affiliates dropdown lists the campus countries (Kenya behind its flag)", async ({ page }) => {
+  test("affiliates dropdown lists the campus countries", async ({ page }) => {
     await page.goto("/");
     await page.getByRole("button", { name: "Affiliates" }).click();
-    await expect(page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: /Kenya/ })).toHaveCount(0);
-    for (const name of ["United States", "Nigeria", "Uganda", "Ghana"]) {
+    for (const name of ["United States", "Nigeria", "Uganda", "Ghana", "Kenya", "Tanzania"]) {
       await expect(
         page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: new RegExp(name) }),
       ).toBeVisible();
