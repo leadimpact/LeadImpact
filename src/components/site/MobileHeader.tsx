@@ -9,7 +9,7 @@ import { MobileUtilityBar } from "./UtilityBar";
 /**
  * Mobile header (SM1): the crest spans the top bar and the header row (overhanging upwards),
  * with Apply and Sign in (applicants and students) always visible. Navigation is the section tabs on the
- * home page, and a Home button under the header everywhere else (MobileSectionTabs), so there is no menu button.
+ * home page, and a Back arrow on the header's edge everywhere else (MobileSectionTabs), so there is no menu button.
  */
 export function MobileHeader() {
   return (

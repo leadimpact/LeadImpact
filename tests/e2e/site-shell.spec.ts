@@ -24,26 +24,30 @@ test.describe("mobile header", () => {
     await expect(page.getByRole("banner").getByRole("link", { name: "Apply", exact: true })).toBeInViewport();
   });
 
-  test("other pages: a Home button replaces the section tabs", async ({ page }) => {
+  test("other pages: a Back arrow replaces the section tabs", async ({ page }) => {
     await page.goto("/about");
     // Sections are chosen on the home page only.
     await expect(page.getByRole("navigation", { name: "Sections" })).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Menu" })).toHaveCount(0);
 
-    const home = page.getByRole("link", { name: "Home — all sections" });
-    await expect(home).toBeVisible();
-    // Flush with the header's left edge, like the tabs it replaces.
-    expect((await home.boundingBox())!.x).toBe(0);
-
-    await home.click();
+    // Landed here directly, so there is no page on this site to go back to: Back goes home.
+    await page.getByRole("button", { name: "Back", exact: true }).click();
     await expect(page).toHaveURL(/\/$/, { timeout: 15_000 });
     await expect(page.getByRole("navigation", { name: "Sections" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Home — all sections" })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Back", exact: true })).toHaveCount(0);
   });
 
-  test("the not-found page has the Home button, not the section tabs", async ({ page }) => {
+  test("Back returns to the previous page on this site", async ({ page }) => {
+    await page.goto("/about");
+    await page.getByRole("link", { name: /Read the message/ }).click();
+    await expect(page).toHaveURL(/\/about\/president$/, { timeout: 15_000 });
+    await page.getByRole("button", { name: "Back", exact: true }).click();
+    await expect(page).toHaveURL(/\/about$/, { timeout: 15_000 });
+  });
+
+  test("the not-found page has the Back arrow, not the section tabs", async ({ page }) => {
     await page.goto("/no-such-page");
-    await expect(page.getByRole("link", { name: "Home — all sections" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Back", exact: true })).toBeVisible();
     await expect(page.getByRole("navigation", { name: "Sections" })).toHaveCount(0);
   });
 

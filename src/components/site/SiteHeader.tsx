@@ -5,7 +5,7 @@ import { APP_LINKS } from "@/content/site";
 import { ActiveDesktopNav, DesktopNav } from "./DesktopNav";
 import { Logo } from "./Logo";
 import { MobileHeader } from "./MobileHeader";
-import { ActiveMobileSectionTabs, MobileHomeBar } from "./MobileSectionTabs";
+import { ActiveMobileBackArrow, ActiveMobileSectionTabs } from "./MobileSectionTabs";
 import { UtilityBar } from "./UtilityBar";
 
 export function SiteHeader() {
@@ -53,8 +53,11 @@ export function SiteHeader() {
       {/* The whole header sticks (the crest spans both rows), so Apply and Login stay on screen. */}
       <header className="sticky top-0 z-40 nav:hidden">
         <MobileHeader />
+        <Suspense fallback={null}>
+          <ActiveMobileBackArrow />
+        </Suspense>
       </header>
-      <Suspense fallback={<MobileHomeBar />}>
+      <Suspense fallback={null}>
         <ActiveMobileSectionTabs />
       </Suspense>
     </>

@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
-import { ArrowRight, ChevronDown, House } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
 import { COUNTRY_LIST } from "@/content/countries";
 import { MAIN_NAV, affiliateHref, isCurrentSection, sectionLinks, type NavItem } from "@/content/navigation";
 import { useCountry } from "@/lib/country";
@@ -12,8 +12,9 @@ import { useCountry } from "@/lib/country";
 // Text sized so "ADMISSIONS" fits a quarter of the narrowest phones (320px).
 const barTab =
   "flex min-h-9 w-full flex-col items-center justify-center px-0.5 py-1 text-center font-display text-[11px] font-extrabold uppercase leading-none tracking-[0.01em] max-[379px]:text-[10px] max-[339px]:text-[9px]";
-// Side columns (as on jhu.edu): label left, chevron right; 124px fits "ADMISSIONS" plus its chevron. See-through (75%, the least that keeps
-// black labels at AA contrast over the darkest video frames) so the hero text behind still shows.
+// Side columns (as on jhu.edu): label left, chevron right; 124px fits "ADMISSIONS" plus its chevron.
+// See-through (75%, the least that keeps black labels at AA contrast over the darkest video frames)
+// so the hero text behind still shows.
 const sideTab =
   "flex h-10 w-full items-center justify-between gap-1.5 px-3 font-display text-[12px] font-extrabold uppercase leading-none tracking-[0.06em]";
 
@@ -23,33 +24,52 @@ const sideTab =
  */
 export type SectionTabsLayout = "bar" | "side" | "split";
 
+/** Pages seen in this tab without a full reload; above 1, Back has a page on this site to return to. */
+let pagesSeen = 0;
+// Counted per path change, so effects that run twice (React dev mode) don't count a page twice.
+let lastPath: string | null = null;
+
 /**
  * Reads the current path (needs Suspense under Cache Components); SiteHeader wraps it.
- * Phones choose a section on the home page only; every other page gets a Home button instead.
+ * Phones choose a section on the home page only (the bar under the header, unless the hero shows
+ * the tabs); other pages have the Back arrow instead (ActiveMobileBackArrow).
  */
 export function ActiveMobileSectionTabs() {
   const pathname = usePathname();
-  if (pathname !== "/") return <MobileHomeBar />;
-  return <MobileSectionTabs pathname={pathname} />;
+  return pathname === "/" ? <MobileSectionTabs pathname={pathname} /> : null;
 }
 
 /**
- * Phones, every page but home: a Home button where the section tabs were (the logo also goes home,
- * but not everyone knows that). Hidden on a home page whose hero shows the tabs (see globals.css).
+ * Phones, every page but home: a small Back arrow hanging off the header's bottom edge beside the
+ * crest, so it takes no space and clears the page's first line (24px below the header). It returns
+ * to the previous page on this site; a visitor who landed here directly (search, shared link) goes home.
+ * Rendered inside the sticky header, which it is positioned against.
  */
-export function MobileHomeBar() {
+export function ActiveMobileBackArrow() {
+  const pathname = usePathname();
+  const router = useRouter();
+  useEffect(() => {
+    if (pathname === lastPath) return;
+    lastPath = pathname;
+    pagesSeen++;
+  }, [pathname]);
+  if (pathname === "/") return null;
+
+  const back = () => {
+    const fromThisSite = pagesSeen > 1 || document.referrer.startsWith(window.location.origin);
+    if (fromThisSite) router.back();
+    else router.push("/");
+  };
   return (
-    <div className="section-tabs-bar flex items-center justify-between gap-3 bg-black pr-4 nav:hidden">
-      <Link
-        href="/"
-        aria-label="Home — all sections"
-        className="flex h-11 items-center gap-2 bg-orange px-4 font-display text-[13px] font-extrabold uppercase tracking-[0.08em] text-black hover:bg-orange-hover"
-      >
-        <House size={17} aria-hidden />
-        Home
-      </Link>
-      <span className="truncate text-[12.5px] text-on-dark-muted">All sections on the home page</span>
-    </div>
+    <button
+      type="button"
+      onClick={back}
+      aria-label="Back"
+      // Lined up with the wordmark (MobileHeader's logo padding), centred on the header's bottom edge.
+      className="absolute left-[108px] top-full flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-charcoal text-white shadow-[0_2px_6px_rgba(14,15,18,0.35)] ring-2 ring-white hover:bg-black max-[379px]:left-[102px]"
+    >
+      <ArrowLeft size={16} aria-hidden />
+    </button>
   );
 }
 
