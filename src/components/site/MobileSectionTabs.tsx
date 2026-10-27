@@ -4,7 +4,7 @@ import { useEffect, useId, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, House } from "lucide-react";
 import { COUNTRY_LIST } from "@/content/countries";
 import { MAIN_NAV, affiliateHref, isCurrentSection, sectionLinks, type NavItem } from "@/content/navigation";
 import { useCountry } from "@/lib/country";
@@ -12,10 +12,10 @@ import { useCountry } from "@/lib/country";
 // Text sized so "ADMISSIONS" fits a quarter of the narrowest phones (320px).
 const barTab =
   "flex min-h-9 w-full flex-col items-center justify-center px-0.5 py-1 text-center font-display text-[11px] font-extrabold uppercase leading-none tracking-[0.01em] max-[379px]:text-[10px] max-[339px]:text-[9px]";
-// Side columns (as on jhu.edu): label left, chevron right. See-through (75%, the least that keeps
+// Side columns (as on jhu.edu): label left, chevron right; 124px fits "ADMISSIONS" plus its chevron. See-through (75%, the least that keeps
 // black labels at AA contrast over the darkest video frames) so the hero text behind still shows.
 const sideTab =
-  "flex h-10 w-full items-center justify-between gap-2 px-3.5 font-display text-[12px] font-extrabold uppercase leading-none tracking-[0.06em]";
+  "flex h-10 w-full items-center justify-between gap-1.5 px-3 font-display text-[12px] font-extrabold uppercase leading-none tracking-[0.06em]";
 
 /**
  * "bar": two rows of four under the header (every page). On the home page the tabs can instead sit
@@ -23,11 +23,34 @@ const sideTab =
  */
 export type SectionTabsLayout = "bar" | "side" | "split";
 
-/** Reads the current path (needs Suspense under Cache Components); SiteHeader wraps it. */
+/**
+ * Reads the current path (needs Suspense under Cache Components); SiteHeader wraps it.
+ * Phones choose a section on the home page only; every other page gets a Home button instead.
+ */
 export function ActiveMobileSectionTabs() {
   const pathname = usePathname();
-  // Remount per page, so an open panel closes after navigating.
-  return <MobileSectionTabs key={pathname} pathname={pathname} />;
+  if (pathname !== "/") return <MobileHomeBar />;
+  return <MobileSectionTabs pathname={pathname} />;
+}
+
+/**
+ * Phones, every page but home: a Home button where the section tabs were (the logo also goes home,
+ * but not everyone knows that). Hidden on a home page whose hero shows the tabs (see globals.css).
+ */
+export function MobileHomeBar() {
+  return (
+    <div className="section-tabs-bar flex items-center justify-between gap-3 bg-black pr-4 nav:hidden">
+      <Link
+        href="/"
+        aria-label="Home — all sections"
+        className="flex h-11 items-center gap-2 bg-orange px-4 font-display text-[13px] font-extrabold uppercase tracking-[0.08em] text-black hover:bg-orange-hover"
+      >
+        <House size={17} aria-hidden />
+        Home
+      </Link>
+      <span className="truncate text-[12.5px] text-on-dark-muted">All sections on the home page</span>
+    </div>
+  );
 }
 
 /**
@@ -83,11 +106,11 @@ export function MobileSectionTabs({ pathname, layout = "bar" }: { pathname: stri
       )}
     >
       {bar && list(MAIN_NAV, "grid grid-cols-4 gap-0.5")}
-      {layout === "side" && list(MAIN_NAV, "flex w-[150px] flex-col gap-1")}
+      {layout === "side" && list(MAIN_NAV, "flex w-[124px] flex-col gap-1")}
       {layout === "split" && (
         <>
-          {list(MAIN_NAV.slice(0, half), "flex w-[136px] flex-col gap-1")}
-          {list(MAIN_NAV.slice(half), "flex w-[136px] flex-col gap-1")}
+          {list(MAIN_NAV.slice(0, half), "flex w-[124px] flex-col gap-1")}
+          {list(MAIN_NAV.slice(half), "flex w-[124px] flex-col gap-1")}
         </>
       )}
 
@@ -99,7 +122,7 @@ export function MobileSectionTabs({ pathname, layout = "bar" }: { pathname: stri
             bar && "mt-0.5",
             // Side: a flyout to the left of the column. Split: a card under both columns.
             !bar && "absolute max-h-[60svh] overflow-y-auto shadow-[0_8px_24px_rgba(14,15,18,0.35)]",
-            layout === "side" && "left-3 right-[162px] top-0",
+            layout === "side" && "left-3 right-[136px] top-0",
             layout === "split" && "inset-x-3 top-full mt-2",
           )}
         >

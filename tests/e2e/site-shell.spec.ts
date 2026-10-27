@@ -24,28 +24,27 @@ test.describe("mobile header", () => {
     await expect(page.getByRole("banner").getByRole("link", { name: "Apply", exact: true })).toBeInViewport();
   });
 
-  test("section tabs: Home links, a section opens its pages, Esc closes", async ({ page }) => {
+  test("other pages: a Home button replaces the section tabs", async ({ page }) => {
     await page.goto("/about");
-    const tabs = page.getByRole("navigation", { name: "Sections" });
-    for (const name of ["The University", "Admissions", "Academics", "Programs", "Affiliates", "Media"]) {
-      await expect(tabs.getByRole("button", { name })).toBeVisible();
-    }
+    // Sections are chosen on the home page only.
+    await expect(page.getByRole("navigation", { name: "Sections" })).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Menu" })).toHaveCount(0);
-    // The tabs run edge to edge, like the header row above them.
-    const first = (await tabs.getByRole("link", { name: "Home", exact: true }).boundingBox())!;
-    const last = (await tabs.getByRole("link", { name: "Contact", exact: true }).boundingBox())!;
-    expect(first.x).toBe(0);
-    expect(last.x + last.width).toBeCloseTo(page.viewportSize()!.width, 0);
 
-    const admissions = tabs.getByRole("button", { name: "Admissions" });
-    await admissions.click();
-    await expect(admissions).toHaveAttribute("aria-expanded", "true");
-    await expect(tabs.getByRole("link", { name: "Scholarships" })).toBeVisible();
-    await page.keyboard.press("Escape");
-    await expect(tabs.getByRole("link", { name: "Scholarships" })).toBeHidden();
+    const home = page.getByRole("link", { name: "Home — all sections" });
+    await expect(home).toBeVisible();
+    // Flush with the header's left edge, like the tabs it replaces.
+    expect((await home.boundingBox())!.x).toBe(0);
 
-    await tabs.getByRole("link", { name: "Home", exact: true }).click();
-    await expect(page).toHaveURL(/\/$/);
+    await home.click();
+    await expect(page).toHaveURL(/\/$/, { timeout: 15_000 });
+    await expect(page.getByRole("navigation", { name: "Sections" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Home — all sections" })).toHaveCount(0);
+  });
+
+  test("the not-found page has the Home button, not the section tabs", async ({ page }) => {
+    await page.goto("/no-such-page");
+    await expect(page.getByRole("link", { name: "Home — all sections" })).toBeVisible();
+    await expect(page.getByRole("navigation", { name: "Sections" })).toHaveCount(0);
   });
 
   test("Affiliates tab lists each campus country", async ({ page }) => {

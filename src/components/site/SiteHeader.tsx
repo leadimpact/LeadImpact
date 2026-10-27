@@ -5,7 +5,7 @@ import { APP_LINKS } from "@/content/site";
 import { ActiveDesktopNav, DesktopNav } from "./DesktopNav";
 import { Logo } from "./Logo";
 import { MobileHeader } from "./MobileHeader";
-import { ActiveMobileSectionTabs, MobileSectionTabs } from "./MobileSectionTabs";
+import { ActiveMobileSectionTabs, MobileHomeBar } from "./MobileSectionTabs";
 import { UtilityBar } from "./UtilityBar";
 
 export function SiteHeader() {
@@ -54,7 +54,7 @@ export function SiteHeader() {
       <header className="sticky top-0 z-40 nav:hidden">
         <MobileHeader />
       </header>
-      <Suspense fallback={<MobileSectionTabs pathname={null} />}>
+      <Suspense fallback={<MobileHomeBar />}>
         <ActiveMobileSectionTabs />
       </Suspense>
     </>

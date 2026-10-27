@@ -60,7 +60,7 @@ export const MEDIA = {
  * The 34s photo-montage intro from LIU's YouTube videos (UHZH73p0AwA, 0:00–0:34), cut from the 1080p
  * original; master in ../leadimpact/leadimpact-hero-intro.mp4. Replacing it? Upload under a new id first.
  */
-export const HERO_VIDEO = { id: "home/hero-intro-v1", posterOffset: 6 };
+export const HERO_VIDEO = { id: "home/hero-intro-v1", posterOffset: 7 };
 
 /** Event photo sets; the gallery albums and page banners pick from these. */
 export const COLLECTIONS = {
