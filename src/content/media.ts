@@ -44,7 +44,7 @@ export const MEDIA = {
   certificate: a("home/certificate", `${LIVE}/2019/03/02/liucert690-608.jpg`, "Sample LeadImpact University diploma certificate"),
 
   cletusBassey: a("people/cletus-bassey-headshot", `${SUPPLIED}/leadimpact-regent-president-headshot.jpg`, "Prof. Cletus Bassey"),
-  cletusBasseyPortrait: a("people/cletus-bassey-portrait", `${SUPPLIED}/leadimpact-president-honorary.jpg`, "Prof. Cletus Bassey in academic robes"),
+  cletusBasseyPortrait: a("people/cletus-bassey-portrait-v3", `${SUPPLIED}/leadimpact-president-portrait-2026-trimmed.jpg`, "Prof. Cletus Bassey in academic robes"),
   cletusBasseySpeaking: a("people/cletus-bassey-speaking", `${SUPPLIED}/leadimpact-president2.jpg`, "Prof. Cletus Bassey speaking at a leadership masterclass"),
   kathyArchibong: a("people/kathy-archibong", `${SUPPLIED}/leadimpact-regent-member2.jpg`, "Dr. Kathy Archibong"),
   leonWalter: a("people/leon-walter", `${SUPPLIED}/leadimpact-regent-member4.jpeg`, "Apst. Leon Walter"),
@@ -54,6 +54,13 @@ export const MEDIA = {
   coralWilkins: a("people/coral-wilkins", `${SUPPLIED}/leadimpact-regent-member5.jpeg`, "Dr. Coral Wilkins"),
   albertUdoh: a("people/albert-udoh", `${SUPPLIED}/leadimpact-regent-member7.jpg`, "Dr. Albert Udoh"),
 } satisfies Record<string, MediaAsset>;
+
+/**
+ * Home hero video (Cloudinary video, not in ALL_MEDIA: `pnpm images:upload` handles photos only).
+ * The 34s photo-montage intro from LIU's YouTube videos (UHZH73p0AwA, 0:00–0:34), cut from the 1080p
+ * original; master in ../leadimpact/leadimpact-hero-intro.mp4. Replacing it? Upload under a new id first.
+ */
+export const HERO_VIDEO = { id: "home/hero-intro-v1", posterOffset: 6 };
 
 /** Event photo sets; the gallery albums and page banners pick from these. */
 export const COLLECTIONS = {

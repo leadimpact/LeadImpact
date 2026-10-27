@@ -29,3 +29,28 @@ export function cloudinaryUrl(
   const transform = ["c_limit", `w_${width}`, quality ? `q_${quality}` : "q_auto", "f_webp"].join(",");
   return `https://res.cloudinary.com/${cloudName}/image/upload/${transform}/${folder}/${id}`;
 }
+
+interface VideoDeliveryOptions {
+  width: number;
+  /** Crop to this aspect ratio around the centre, e.g. "9:16" for phones. */
+  aspect?: string;
+  /** "jpg" gives a still frame (the poster) taken `offset` seconds in. */
+  format: "mp4" | "webm" | "jpg";
+  offset?: number;
+  cloudName?: string;
+  folder?: string;
+}
+
+/**
+ * Video delivery URL: H.264 MP4 or VP9 WebM without sound, or a still frame for the poster.
+ * q_auto:good rather than plain q_auto: the hero video's text and photos must stay crisp.
+ */
+export function cloudinaryVideoUrl(
+  id: string,
+  { width, aspect, format, offset = 0, cloudName = CLOUDINARY.cloudName, folder = CLOUDINARY.folder }: VideoDeliveryOptions,
+) {
+  const crop = aspect ? ["c_fill", `ar_${aspect}`, "g_center"] : ["c_limit"];
+  const codec = format === "jpg" ? [`so_${offset}`] : [format === "mp4" ? "vc_h264" : "vc_vp9", "ac_none"];
+  const transform = [...crop, `w_${width}`, "q_auto:good", ...codec].join(",");
+  return `https://res.cloudinary.com/${cloudName}/video/upload/${transform}/${folder}/${id}.${format}`;
+}

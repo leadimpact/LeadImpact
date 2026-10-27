@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { HERO_VARIANT } from "../../src/content/home";
+import { HERO_VARIANT, HOME_TABS } from "../../src/content/home";
 
 type Page = import("@playwright/test").Page;
 const word = (page: Page) => page.getByTestId("hero-word");
@@ -13,7 +13,7 @@ const timerAnimation = (page: Page) =>
     .evaluate((el) => getComputedStyle(el).animationName);
 
 test.describe("home hero (word window)", () => {
-  test.skip(HERO_VARIANT !== "word-window", "Option B is the live hero");
+  test.skip(HERO_VARIANT !== "word-window", "another hero is live");
   test("the word is real text inside the page heading, with one call to action", async ({ page }) => {
     await page.goto("/");
     const hero = page.getByRole("region", { name: "Welcome to LeadImpact University" });
@@ -79,7 +79,7 @@ test.describe("home hero (word window)", () => {
 
 test("phones: the hero fills the first screen, has one call to action and keeps its layout on every slide", async ({ page }) => {
   test.skip(isDesktop(page), "mobile only");
-  test.skip(HERO_VARIANT !== "word-window", "Option B is the live hero");
+  test.skip(HERO_VARIANT !== "word-window", "another hero is live");
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/");
   const hero = page.getByRole("region", { name: "Welcome to LeadImpact University" });
@@ -96,7 +96,7 @@ test("phones: the hero fills the first screen, has one call to action and keeps 
 });
 
 test.describe("home hero (Option B, light with photo strip)", () => {
-  test.skip(HERO_VARIANT !== "light-strip", "the word window is the live hero");
+  test.skip(HERO_VARIANT !== "light-strip", "another hero is live");
 
   test("headline is the page heading, with one call to action", async ({ page }) => {
     await page.goto("/");
@@ -128,6 +128,66 @@ test.describe("home hero (Option B, light with photo strip)", () => {
     expect(box.y + box.height).toBeCloseTo(page.viewportSize()!.height, -1);
     await expect(page.getByRole("navigation", { name: "Quick actions" })).not.toBeInViewport();
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width);
+  });
+});
+
+test.describe("home hero (video)", () => {
+  test.skip(HERO_VARIANT !== "video", "another hero is live");
+  const hero = (page: Page) => page.getByRole("region", { name: "Welcome to LeadImpact University" });
+
+  test("headline is the page heading, with one call to action", async ({ page }) => {
+    await page.goto("/");
+    await expect(hero(page).getByRole("heading", { level: 1 })).toContainText("Time to take the lead.");
+    await expect(hero(page).getByRole("link", { name: /Start your application/ })).toHaveCount(1);
+  });
+
+  test("plays muted on a loop and can be paused", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto("/");
+    test.skip((await hero(page).locator("picture").count()) === 0, "no Cloudinary cloud name, so no video");
+    const video = page.getByTestId("hero-video");
+    await expect(video).toHaveJSProperty("muted", true);
+    await expect(video).toHaveJSProperty("loop", true);
+    await expect.poll(() => video.evaluate((v: HTMLVideoElement) => !v.paused), { timeout: 30_000 }).toBe(true);
+
+    await page.getByRole("button", { name: "Pause background video" }).click();
+    await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.paused)).toBe(true);
+    await expect(page.getByRole("button", { name: "Play background video" })).toBeVisible();
+  });
+
+  test("reduced motion and Lite mode never load the video", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+    await expect(hero(page).getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.getByTestId("hero-video")).toHaveCount(0);
+
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "connection", { value: { saveData: true, effectiveType: "4g" } });
+    });
+    await page.goto("/");
+    await expect(page.locator("html")).toHaveAttribute("data-lite", "");
+    await expect(page.getByTestId("hero-video")).toHaveCount(0);
+  });
+
+  test("phones: the section tabs sit on the video instead of under the header", async ({ page }) => {
+    test.skip(isDesktop(page), "mobile only");
+    test.skip(HOME_TABS === "bar", "the tabs stay under the header");
+    await page.goto("/");
+    const tabs = page.getByRole("navigation", { name: "Sections" });
+    // Only the hero's copy is visible; the bar under the header is hidden on this page.
+    await expect(tabs).toHaveCount(1);
+    const heroBox = (await hero(page).boundingBox())!;
+    const homeBox = (await tabs.getByRole("link", { name: "Home", exact: true }).boundingBox())!;
+    expect(homeBox.y).toBeGreaterThan(heroBox.y);
+
+    await tabs.getByRole("button", { name: "Admissions" }).click();
+    await expect(tabs.getByRole("link", { name: "Scholarships" })).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(tabs.getByRole("link", { name: "Scholarships" })).toBeHidden();
+
+    const box = (await hero(page).boundingBox())!;
+    expect(box.y + box.height).toBeCloseTo(page.viewportSize()!.height, -1);
   });
 });
 

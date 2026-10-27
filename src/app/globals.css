@@ -263,6 +263,11 @@
   filter: brightness(1.6) contrast(1.05);
 }
 
+/* A home hero that shows the section tabs over its video hides the bar under the header. */
+:root:has([data-hero-tabs]) .section-tabs-bar {
+  display: none;
+}
+
 /* Top-bar phone ticker: the next number rolls up from below. */
 /* Slide only (no fade), so the number never passes through low contrast. */
 @keyframes ticker-in {

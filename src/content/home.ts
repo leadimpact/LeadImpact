@@ -33,10 +33,11 @@ export const HERO = {
 };
 
 /**
- * Which home hero to show: the dark "word window" (S01) or Option B (S01c), the light hero with
- * a tilted strip of slider photos. Being compared with the client; keep only the one they pick.
+ * Which home hero to show: the dark "word window" (S01), Option B (S01c, the light hero with a
+ * tilted strip of slider photos) or a full-bleed video from LIU's YouTube channel. Being compared
+ * with the client; keep only the one they pick.
  */
-export const HERO_VARIANT: "word-window" | "light-strip" = "light-strip";
+export const HERO_VARIANT: "word-window" | "light-strip" | "video" = "video";
 
 /** S01c (Option B) copy. */
 export const HERO_B = {
@@ -46,6 +47,18 @@ export const HERO_B = {
   copy: `Christian leadership, theology and ministry degrees — online, offline-ready, and on campuses in ${COUNTRY_COUNT_WORD} countries.`,
   /** Seconds for the photo strip to scroll one full set. */
   stripSeconds: 40,
+};
+
+/**
+ * Phones, video hero only: where the section tabs go on the home page. "bar" keeps them under the
+ * header; "side" stacks them down the right of the video (as on jhu.edu); "split" puts four on each side.
+ */
+export const HOME_TABS: "bar" | "side" | "split" = "side";
+
+/** Video hero copy. */
+export const HERO_VIDEO_COPY = {
+  headline: "Time to take the lead.",
+  copy: "We don’t just educate minds — we transform lives.",
 };
 
 export type QuickActionIcon = "apply" | "pay" | "login" | "learn";
