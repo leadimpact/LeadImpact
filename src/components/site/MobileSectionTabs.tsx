@@ -11,7 +11,7 @@ import { useCountry } from "@/lib/country";
 
 // Text sized so "ADMISSIONS" fits a quarter of the narrowest phones (320px).
 const tab =
-  "flex min-h-[34px] w-full flex-col items-center justify-center rounded-[4px] px-0.5 py-1 text-center font-display text-[11px] font-extrabold uppercase leading-none tracking-[0.01em] max-[379px]:text-[10px] max-[339px]:text-[9px]";
+  "flex min-h-9 w-full flex-col items-center justify-center px-0.5 py-1 text-center font-display text-[11px] font-extrabold uppercase leading-none tracking-[0.01em] max-[379px]:text-[10px] max-[339px]:text-[9px]";
 
 /** Reads the current path (needs Suspense under Cache Components); SiteHeader wraps it. */
 export function ActiveMobileSectionTabs() {
@@ -21,7 +21,8 @@ export function ActiveMobileSectionTabs() {
 }
 
 /**
- * Phones: the desktop menu as orange tabs, two rows of four, on the dark band under the header.
+ * Phones: the desktop menu as orange tabs, two rows of four, flush with the header's edges so they
+ * read as its second row (2px hairlines between them).
  * Home and Contact are links; the others open a panel of that section's pages, like the
  * desktop dropdowns. Replaces the old full-screen menu.
  */
@@ -41,8 +42,8 @@ export function MobileSectionTabs({ pathname }: { pathname: string | null }) {
   const openItem = MAIN_NAV.find((i) => i.kind !== "link" && i.label === open);
 
   return (
-    <nav aria-label="Sections" className="bg-black px-3 py-2 nav:hidden">
-      <ul className="grid grid-cols-4 gap-1">
+    <nav aria-label="Sections" className="bg-black pb-0.5 nav:hidden">
+      <ul className="grid grid-cols-4 gap-0.5">
         {MAIN_NAV.map((item) => (
           <li key={item.label}>
             <Tab
@@ -57,7 +58,7 @@ export function MobileSectionTabs({ pathname }: { pathname: string | null }) {
       </ul>
 
       {openItem && openItem.kind !== "link" && (
-        <div id={panelId} className="mt-2 rounded-[6px] bg-white p-3 text-ink">
+        <div id={panelId} className="mt-0.5 bg-white p-3 text-ink">
           <ul className="grid grid-cols-2 gap-1.5">
             {sectionLinks(openItem, COUNTRY_LIST).map((l) => {
               const href = l.countryAffiliate ? affiliateHref(country.code) : l.href;

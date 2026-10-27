@@ -68,8 +68,8 @@ export function WordWindowHero({ slides, hero }: Props) {
         touchX.current = null;
         if (Math.abs(dx) > 50) go(index + (dx < 0 ? 1 : -1));
       }}
-      // Phones: a fixed height filling the first screen under the sticky header (110px) and section tabs (88px).
-      className="relative flex h-[max(calc(100svh-198px),456px)] flex-col justify-center overflow-hidden bg-black px-5 py-6 text-center [@media(max-height:680px)]:py-3 text-white md:h-[820px] md:justify-start md:px-0 md:pb-[30px] md:pt-0"
+      // Phones: a fixed height filling the first screen under the sticky header (110px) and section tabs (76px).
+      className="relative flex h-[max(calc(100svh-186px),456px)] flex-col justify-center overflow-hidden bg-black px-5 py-6 text-center [@media(max-height:680px)]:py-3 text-white md:h-[820px] md:justify-start md:px-0 md:pb-[30px] md:pt-0"
     >
       {/* Faint, darkened copy of the slide photo behind everything */}
       <div

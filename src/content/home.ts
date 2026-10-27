@@ -1,5 +1,5 @@
 import { APP_LINKS } from "./site";
-import { COUNTRY_COUNT } from "./countries";
+import { COUNTRY_COUNT, COUNTRY_COUNT_WORD, COUNTRY_LIST } from "./countries";
 import { MEDIA, type MediaAsset } from "./media";
 
 export interface HeroSlide {
@@ -30,6 +30,22 @@ export const HERO = {
   reassuranceShort: "About 15 minutes · No application fee",
   /** Seconds each slide stays before advancing. */
   slideSeconds: 7,
+};
+
+/**
+ * Which home hero to show: the dark "word window" (S01) or Option B (S01c), the light hero with
+ * a tilted strip of slider photos. Being compared with the client; keep only the one they pick.
+ */
+export const HERO_VARIANT: "word-window" | "light-strip" = "light-strip";
+
+/** S01c (Option B) copy. */
+export const HERO_B = {
+  countries: COUNTRY_LIST.map((c) => (c.code === "US" ? "USA" : c.name)),
+  headline: ["Time to take", "the"],
+  accent: "lead.",
+  copy: `Christian leadership, theology and ministry degrees — online, offline-ready, and on campuses in ${COUNTRY_COUNT_WORD} countries.`,
+  /** Seconds for the photo strip to scroll one full set. */
+  stripSeconds: 40,
 };
 
 export type QuickActionIcon = "apply" | "pay" | "login" | "learn";

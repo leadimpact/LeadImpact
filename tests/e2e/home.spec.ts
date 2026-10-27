@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { HERO_VARIANT } from "../../src/content/home";
 
 type Page = import("@playwright/test").Page;
 const word = (page: Page) => page.getByTestId("hero-word");
@@ -12,6 +13,7 @@ const timerAnimation = (page: Page) =>
     .evaluate((el) => getComputedStyle(el).animationName);
 
 test.describe("home hero (word window)", () => {
+  test.skip(HERO_VARIANT !== "word-window", "Option B is the live hero");
   test("the word is real text inside the page heading, with one call to action", async ({ page }) => {
     await page.goto("/");
     const hero = page.getByRole("region", { name: "Welcome to LeadImpact University" });
@@ -77,6 +79,7 @@ test.describe("home hero (word window)", () => {
 
 test("phones: the hero fills the first screen, has one call to action and keeps its layout on every slide", async ({ page }) => {
   test.skip(isDesktop(page), "mobile only");
+  test.skip(HERO_VARIANT !== "word-window", "Option B is the live hero");
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/");
   const hero = page.getByRole("region", { name: "Welcome to LeadImpact University" });
@@ -90,6 +93,42 @@ test("phones: the hero fills the first screen, has one call to action and keeps 
   await page.waitForTimeout(900); // let the wipe-in finish
   expect(await hero.boundingBox()).toEqual(before.hero);
   expect((await cta.boundingBox())!.y).toBeCloseTo(before.cta!.y, 0);
+});
+
+test.describe("home hero (Option B, light with photo strip)", () => {
+  test.skip(HERO_VARIANT !== "light-strip", "the word window is the live hero");
+
+  test("headline is the page heading, with one call to action", async ({ page }) => {
+    await page.goto("/");
+    const hero = page.getByRole("region", { name: "Welcome to LeadImpact University" });
+    await expect(hero.getByRole("heading", { level: 1 })).toContainText("Time to take the lead.");
+    await expect(hero.getByRole("link")).toHaveCount(1);
+    await expect(hero.getByRole("link", { name: /Start your application/ })).toBeVisible();
+  });
+
+  test("the photo strip scrolls, and stays still with reduced motion or Lite mode", async ({ page }) => {
+    const strip = page.locator(".hero-strip");
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto("/");
+    await expect(strip).toHaveCSS("animation-name", "strip-scroll");
+
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "connection", { value: { saveData: true, effectiveType: "4g" } });
+    });
+    await page.goto("/");
+    await expect(page.locator("html")).toHaveAttribute("data-lite", "");
+    await expect(strip).toHaveCSS("animation-name", "none");
+  });
+
+  test("phones: the hero fills the first screen without scrolling sideways", async ({ page }) => {
+    test.skip(isDesktop(page), "mobile only");
+    await page.goto("/");
+    const hero = page.getByRole("region", { name: "Welcome to LeadImpact University" });
+    const box = (await hero.boundingBox())!;
+    expect(box.y + box.height).toBeCloseTo(page.viewportSize()!.height, -1);
+    await expect(page.getByRole("navigation", { name: "Quick actions" })).not.toBeInViewport();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width);
+  });
 });
 
 test("tuition is shown as $200 per course or $500 for 3", async ({ page }) => {

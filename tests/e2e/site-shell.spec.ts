@@ -31,6 +31,11 @@ test.describe("mobile header", () => {
       await expect(tabs.getByRole("button", { name })).toBeVisible();
     }
     await expect(page.getByRole("button", { name: "Menu" })).toHaveCount(0);
+    // The tabs run edge to edge, like the header row above them.
+    const first = (await tabs.getByRole("link", { name: "Home", exact: true }).boundingBox())!;
+    const last = (await tabs.getByRole("link", { name: "Contact", exact: true }).boundingBox())!;
+    expect(first.x).toBe(0);
+    expect(last.x + last.width).toBeCloseTo(page.viewportSize()!.width, 0);
 
     const admissions = tabs.getByRole("button", { name: "Admissions" });
     await admissions.click();

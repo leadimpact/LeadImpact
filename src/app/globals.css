@@ -243,6 +243,26 @@
   color: var(--color-white);
 }
 
+/* Hero option B: the photo strip scrolls one set's width (the track holds two), then loops. */
+@keyframes strip-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.hero-strip {
+  animation: strip-scroll linear infinite;
+}
+.hero-strip:hover {
+  animation-play-state: paused;
+}
+[data-lite] .hero-strip {
+  animation: none;
+}
+/* The live slider photos carry a dark overlay; lift it, as the word window does. */
+.hero-strip-photo img {
+  filter: brightness(1.6) contrast(1.05);
+}
+
 /* Top-bar phone ticker: the next number rolls up from below. */
 /* Slide only (no fade), so the number never passes through low contrast. */
 @keyframes ticker-in {
